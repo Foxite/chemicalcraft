@@ -21,8 +21,8 @@ public class ModGuiHandler implements IGuiHandler {
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		if (ID == CHEMISTRY_STAND_ENTITY_GUI)
-			return new ContainerChemistryStandEntity(player.inventory,
-					   (ChemistryStandEntity) world.getTileEntity(new BlockPos(x, y, z)));
+			return new GuiChemistryStandEntity(player.inventory,
+											  (ChemistryStandEntity) world.getTileEntity(new BlockPos(x, y, z)));
 		
 		return null;
 	}

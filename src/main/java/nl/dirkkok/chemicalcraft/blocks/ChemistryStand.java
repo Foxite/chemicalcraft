@@ -44,7 +44,8 @@ public class ChemistryStand extends BasicBlock implements ITileEntityProvider {
 	}
 	
 	@Override
-	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
+	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
+	                            ItemStack stack) {
 		if (stack.hasDisplayName()) {
 			((ChemistryStandEntity) worldIn.getTileEntity(pos)).setCustomName(stack.getDisplayName());
 		}
@@ -55,8 +56,8 @@ public class ChemistryStand extends BasicBlock implements ITileEntityProvider {
 	                                EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side,
 	                                float hitX, float hitY, float hitZ) {
 		if (!worldIn.isRemote) {
-			playerIn.openGui(ChemicalCraft.instance, ModGuiHandler.CHEMISTRY_STAND_ENTITY_GUI, worldIn, pos.getX(), pos.getY(),
-					pos.getZ());
+			playerIn.openGui(ChemicalCraft.instance, ModGuiHandler.CHEMISTRY_STAND_ENTITY_GUI, worldIn, pos.getX(),
+					pos.getY(), pos.getZ());
 		}
 		return true;
 	}
