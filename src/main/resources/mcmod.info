@@ -1,0 +1,16 @@
+[
+{
+  "modid": "chemicalcraft",
+  "name": "ChemicalCraft",
+  "description": "ChemicalCraft adds chemistry to the game.",
+  "version": "0.1",
+  "mcversion": "1.10.2",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Foxite"],
+  "credits": "Developer: Dirk Kok aka Foxite", "_comment": "TODO add spriter",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

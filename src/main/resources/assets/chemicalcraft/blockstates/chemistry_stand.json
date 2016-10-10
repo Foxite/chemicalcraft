@@ -1,0 +1,6 @@
+{
+	"variants": {
+		"normal": { "model": "chemicalcraft:chemistry_stand" },
+		"inventory": { "model": "chemicalcraft:item/chemistry_stand" }
+	}
+}

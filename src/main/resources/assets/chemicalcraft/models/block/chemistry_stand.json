@@ -1,0 +1,262 @@
+{
+    "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
+    "__comment2": "This file has been well-commented because of the complicated model. Make sure you read the comments, or texturing might be very hard.",
+
+	"__comment3": "Inherits block/block to copy display data.",
+    "parent": "block/block",
+    "textures": {},
+    "elements": [
+        {
+            "__comment": "Left and right sides, both high and low, use the same textures, except the left and right sides are swapped.",
+            "name": "left_side_low",
+            "from": [ 0, 0, 0 ],
+            "to": [ 1, 8, 16 ],
+            "faces": {
+                "north": { "texture": "#lowside-back", "uv": [ 0, 0, 1, 8 ], "cullface": "north" },
+				"east":  { "texture": "#lowside-inner", "uv": [ 0, 0, 16, 8 ] },
+                "south": { "texture": "#lowside-front", "uv": [ 0, 0, 1, 8 ], "cullface": "south" },
+                "west":  { "texture": "#lowside-outer", "uv": [ 0, 0, 16, 8 ], "cullface": "west" },
+                "up":    { "texture": "#lowside-up", "uv": [ 0, 0, 1, 16 ] },
+                "down":  { "texture": "#lowside-down", "uv": [ 0, 0, 1, 16 ], "cullface": "down" }
+            }
+        },
+        {
+            "name": "right_side_low",
+            "from": [ 15, 0, 0 ],
+            "to": [ 16, 8, 16 ],
+            "faces": {
+                "north": { "texture": "#lowside-back", "uv": [ 0, 0, 1, 8 ], "cullface": "north" },
+                "east":  { "texture": "#lowside-outer", "uv": [ 0, 0, 16, 8 ], "cullface": "east" },
+                "south": { "texture": "#lowside-front", "uv": [ 0, 0, 1, 8 ], "cullface": "south" },
+                "west":  { "texture": "#lowside-inner", "uv": [ 0, 0, 16, 8 ] },
+                "up":    { "texture": "#lowside-up", "uv": [ 0, 0, 1, 16 ] },
+                "down":  { "texture": "#lowside-down", "uv": [ 0, 0, 1, 16 ], "cullface": "down" }
+            }
+        },
+        {
+            "name": "right_side_high",
+            "from": [ 15, 8, 0 ],
+            "to": [ 16, 12, 12 ],
+            "faces": {
+                "north": { "texture": "#highside-back", "uv": [ 0, 0, 1, 4 ], "cullface": "north" },
+                "east":  { "texture": "#highside-outer", "uv": [ 0, 0, 12, 4 ], "cullface": "east" },
+                "south": { "texture": "#highside-front", "uv": [ 0, 0, 1, 4 ] },
+                "west":  { "texture": "#highside-inner", "uv": [ 0, 0, 12, 4 ] },
+                "up":    { "texture": "#highside-up", "uv": [ 0, 0, 1, 12 ], "cullface": "up" }
+            }
+        },
+        {
+            "name": "left_side_high",
+            "from": [ 0, 8, 0 ],
+            "to": [ 1, 12, 12 ],
+            "faces": {
+                "north": { "texture": "#highside-back", "uv": [ 0, 0, 1, 4 ], "cullface": "north" },
+                "east":  { "texture": "#highside-inner", "uv": [ 0, 0, 12, 4 ] },
+                "south": { "texture": "#highside-front", "uv": [ 0, 0, 1, 4 ] },
+                "west":  { "texture": "#highside-outer", "uv": [ 0, 0, 12, 4 ], "cullface": "west" },
+                "up":    { "texture": "#highside-up", "uv": [ 0, 0, 1, 12 ], "cullface": "up" }
+            }
+        },
+        {
+            "name": "low_plate",
+            "from": [ 1, 2, 2 ],
+            "to": [ 15, 3, 10 ],
+            "faces": {
+                "north": { "texture": "#plate-back", "uv": [ 0, 0, 14, 1 ] },
+                "south": { "texture": "#plate-front", "uv": [ 0, 0, 14, 1 ] },
+                "up":    { "texture": "#plate-up", "uv": [ 0, 0, 14, 8 ] },
+                "down":  { "texture": "#plate-down", "uv": [ 0, 0, 14, 8 ] }
+            }
+        },
+        {
+            "__comment": "All the top plate's elements have been mapped to behave as if it were a single element.",
+            "__comment2": "This means that you could have the same textures for the top plate as the low plate, and it will work just fine.",
+            "__comment3": "#highplate-inside is just one single pixel.",
+            "name": "high_grid_back",
+            "from": [ 1, 8, 2 ],
+            "to": [ 15, 9, 4 ],
+            "faces": {
+                "north": { "texture": "#highplate-back", "uv": [ 0, 0, 14, 1 ] },
+                "south": { "texture": "#highplate-inside", "uv": [ 0, 0, 1, 1 ] },
+                "up":    { "texture": "#highplate-up", "uv": [ 0, 0, 14, 2 ] },
+                "down":  { "texture": "#highplate-down", "uv": [ 0, 0, 14, 2 ] }
+            }
+        },
+        {
+            "name": "high_grid_front",
+            "from": [ 1, 8, 8 ],
+            "to": [ 15, 9, 10 ],
+            "faces": {
+                "north": { "texture": "#highplate-inside", "uv": [ 0, 0, 1, 1 ] },
+                "south": { "texture": "#highplate-front", "uv": [ 0, 0, 14, 1 ] },
+                "up":    { "texture": "#highplate-up", "uv": [ 0, 6, 14, 8 ] },
+                "down":  { "texture": "#highplate-down", "uv": [ 0, 6, 14, 8 ] }
+            }
+        },
+        {
+            "name": "high_grid_seperator_1",
+            "from": [ 1, 8, 4 ],
+            "to": [ 2, 9, 5 ],
+            "faces": {
+                "east":  { "texture": "#highplate-inside", "uv": [ 0, 0, 1, 1 ] },
+                "west":  { "texture": "#highplate-inside", "uv": [ 0, 0, 1, 1 ] },
+                "up":    { "texture": "#highplate-up", "uv": [ 0, 2, 1, 3 ] },
+                "down":  { "texture": "#highplate-down", "uv": [ 0, 2, 1, 3 ] }
+            }
+        },
+        {
+            "name": "high_grid_seperator_2",
+            "from": [ 3, 8, 4 ],
+            "to": [ 4, 9, 5 ],
+            "faces": {
+                "east":  { "texture": "#highplate-inside", "uv": [ 0, 0, 1, 1 ] },
+                "west":  { "texture": "#highplate-inside", "uv": [ 0, 0, 1, 1 ] },
+                "up":    { "texture": "#highplate-up", "uv": [ 2, 2, 3, 3 ] },
+                "down":  { "texture": "#highplate-down", "uv": [ 2, 2, 3, 3 ] }
+            }
+        },
+        {
+            "name": "high_grid_seperator_3",
+            "from": [ 5, 8, 4 ],
+            "to": [ 6, 9, 5 ],
+            "faces": {
+                "east":  { "texture": "#highplate-inside", "uv": [ 0, 0, 1, 1 ] },
+                "west":  { "texture": "#highplate-inside", "uv": [ 0, 0, 1, 1 ] },
+                "up":    { "texture": "#highplate-up", "uv": [ 4, 2, 5, 3 ] },
+                "down":  { "texture": "#highplate-down", "uv": [ 4, 2, 5, 3 ] }
+            }
+        },
+        {
+            "name": "high_grid_seperator_4",
+            "from": [ 7, 8, 4 ],
+            "to": [ 9, 9, 5 ],
+            "faces": {
+                "east":  { "texture": "#highplate-inside", "uv": [ 0, 0, 1, 1 ] },
+                "west":  { "texture": "#highplate-inside", "uv": [ 0, 0, 1, 1 ] },
+                "up":    { "texture": "#highplate-up", "uv": [ 6, 2, 8, 3 ] },
+                "down":  { "texture": "#highplate-down", "uv": [ 6, 2, 8, 3 ] }
+            }
+        },
+        {
+            "name": "high_grid_seperator_5",
+            "from": [ 10, 8, 4 ],
+            "to": [ 11, 9, 5 ],
+            "faces": {
+                "east":  { "texture": "#highplate-inside", "uv": [ 0, 0, 1, 1 ] },
+                "west":  { "texture": "#highplate-inside", "uv": [ 0, 0, 1, 1 ] },
+                "up":    { "texture": "#highplate-up", "uv": [ 9, 2, 10, 3 ] },
+                "down":  { "texture": "#highplate-down", "uv": [ 9, 2, 10, 3 ] }
+            }
+        },
+        {
+            "name": "high_grid_seperator_6",
+            "from": [ 12, 8, 4 ],
+            "to": [ 13, 9, 5 ],
+            "faces": {
+                "east":  { "texture": "#highplate-inside", "uv": [ 0, 0, 1, 1 ] },
+                "west":  { "texture": "#highplate-inside", "uv": [ 0, 0, 1, 1 ] },
+                "up":    { "texture": "#highplate-up", "uv": [ 11, 2, 12, 3 ] },
+                "down":  { "texture": "#highplate-down", "uv": [ 11, 2, 12, 3 ] }
+            }
+        },
+        {
+            "name": "high_grid_seperator_7",
+            "from": [ 14, 8, 4 ],
+            "to": [ 15, 9, 5 ],
+            "faces": {
+                "east":  { "texture": "#highplate-inside", "uv": [ 0, 0, 1, 1 ] },
+                "west":  { "texture": "#highplate-inside", "uv": [ 0, 0, 1, 1 ] },
+                "up":    { "texture": "#highplate-up", "uv": [ 13, 2, 14, 3 ] },
+                "down":  { "texture": "#highplate-down", "uv": [ 13, 2, 14, 3 ] }
+            }
+        },
+        {
+            "name": "high_grid_seperator_8",
+            "from": [ 1, 8, 7 ],
+            "to": [ 2, 9, 8 ],
+            "faces": {
+                "east":  { "texture": "#highplate-inside", "uv": [ 0, 0, 1, 1 ] },
+                "west":  { "texture": "#highplate-inside", "uv": [ 0, 0, 1, 1 ] },
+                "up":    { "texture": "#highplate-up", "uv": [ 0, 5, 1, 6 ] },
+                "down":  { "texture": "#highplate-down", "uv": [ 0, 5, 1, 6 ] }
+            }
+        },
+        {
+            "name": "high_grid_seperator_9",
+            "from": [ 3, 8, 7 ],
+            "to": [ 4, 9, 8 ],
+            "faces": {
+                "east":  { "texture": "#highplate-inside", "uv": [ 0, 0, 1, 1 ] },
+                "west":  { "texture": "#highplate-inside", "uv": [ 0, 0, 1, 1 ] },
+                "up":    { "texture": "#highplate-up", "uv": [ 2, 5, 3, 6 ] },
+                "down":  { "texture": "#highplate-down", "uv": [ 2, 5, 3, 6 ] }
+            }
+        },
+        {
+            "name": "high_grid_seperator_10",
+            "from": [ 5, 8, 7 ],
+            "to": [ 6, 9, 8 ],
+            "faces": {
+                "east":  { "texture": "#highplate-inside", "uv": [ 0, 0, 1, 1 ] },
+                "west":  { "texture": "#highplate-inside", "uv": [ 0, 0, 1, 1 ] },
+                "up":    { "texture": "#highplate-up", "uv": [ 4, 5, 5, 6 ] },
+                "down":  { "texture": "#highplate-down", "uv": [ 4, 5, 5, 6 ] }
+            }
+        },
+        {
+            "name": "high_grid_seperator_11",
+            "from": [ 7, 8, 7 ],
+            "to": [ 9, 9, 8 ],
+            "faces": {
+                "east":  { "texture": "#highplate-inside", "uv": [ 0, 0, 1, 1 ] },
+                "west":  { "texture": "#highplate-inside", "uv": [ 0, 0, 1, 1 ] },
+                "up":    { "texture": "#highplate-up", "uv": [ 6, 5, 8, 6 ] },
+                "down":  { "texture": "#highplate-down", "uv": [ 6, 5, 8, 6 ] }
+            }
+        },
+        {
+            "name": "high_grid_seperator_12",
+            "from": [ 10, 8, 7 ],
+            "to": [ 11, 9, 8 ],
+            "faces": {
+                "east":  { "texture": "#highplate-inside", "uv": [ 0, 0, 1, 1 ] },
+                "west":  { "texture": "#highplate-inside", "uv": [ 0, 0, 1, 1 ] },
+                "up":    { "texture": "#highplate-up", "uv": [ 9, 5, 10, 6 ] },
+                "down":  { "texture": "#highplate-down", "uv": [ 9, 5, 10, 6 ] }
+            }
+        },
+        {
+            "name": "high_grid_seperator_13",
+            "from": [ 12, 8, 7 ],
+            "to": [ 13, 9, 8 ],
+            "faces": {
+                "east":  { "texture": "#highplate-inside", "uv": [ 0, 0, 1, 1 ] },
+                "west":  { "texture": "#highplate-inside", "uv": [ 0, 0, 1, 1 ] },
+                "up":    { "texture": "#highplate-up", "uv": [ 11, 5, 12, 6 ] },
+                "down":  { "texture": "#highplate-down", "uv": [ 11, 5, 12, 6 ] }
+            }
+        },
+        {
+            "name": "high_grid_seperator_14",
+            "from": [ 14, 8, 7 ],
+            "to": [ 15, 9, 9 ],
+            "faces": {
+                "east":  { "texture": "#highplate-inside", "uv": [ 0, 0, 1, 1 ] },
+                "west":  { "texture": "#highplate-inside", "uv": [ 0, 0, 1, 1 ] },
+                "up":    { "texture": "#highplate-up", "uv": [ 13, 5, 14, 6 ] },
+                "down":  { "texture": "#highplate-down", "uv": [ 13, 5, 14, 6 ] }
+            }
+        },
+        {
+            "name": "high_grid_crossbar",
+            "from": [ 1, 8, 5 ],
+            "to": [ 15, 9, 7 ],
+            "faces": {
+                "north": { "texture": "#highplate-inside", "uv": [ 0, 0, 1, 1 ] },
+                "south": { "texture": "#highplate-inside", "uv": [ 0, 0, 1, 1 ] },
+                "up":    { "texture": "#highplate-up", "uv": [ 0, 3, 14, 5 ] },
+                "down":  { "texture": "#highplate-down", "uv": [ 0, 3, 12, 5 ] }
+            }
+        }
+    ]
+}
