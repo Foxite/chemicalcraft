@@ -55,7 +55,7 @@ public class ChemistryStand extends BasicBlock implements ITileEntityProvider {
 	                                EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side,
 	                                float hitX, float hitY, float hitZ) {
 		if (!worldIn.isRemote) {
-			playerIn.openGui(ChemicalCraft.instance, ModGuiHandler.MOD_TILE_ENTITY_GUI, worldIn, pos.getX(), pos.getY(),
+			playerIn.openGui(ChemicalCraft.instance, ModGuiHandler.CHEMISTRY_STAND_ENTITY_GUI, worldIn, pos.getX(), pos.getY(),
 					pos.getZ());
 		}
 		return true;

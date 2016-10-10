@@ -28,8 +28,8 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 		int getValue() { return value; }
 	}
 	
-	/* The Chemistry Stand has 5 slots. 2 input slots, an output slot, a residue slot, and a tube storage slot.
-	 * [ firstInput, secondInput, output, residue, tubeStorage ]
+	/* The Chemistry Stand has 6 slots. 2 input slots, 2 output slots, a residue slot, and a fuel slot.
+	 * [ firstInput, secondInput, firstOutput, secondOutput, residue, fuel ]
 	 */
 	private ItemStack[] inventory;
 	private Mode mode;
@@ -182,6 +182,10 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 		return 64;
 	}
 	
+	public boolean isUsableByPlayer(EntityPlayer p) { // I insist on using usable.
+		return isUseableByPlayer(p);
+	}
+	
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer player) {
 		return this.worldObj.getTileEntity(this.getPos()) == this && player.getDistanceSq(this.pos.add(0.5, 0.5, 0.5)) <= 64;
@@ -195,7 +199,7 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 	
 	@Override
 	public int getSizeInventory() {
-		return 5;
+		return 6;
 	}
 	
 	@Override
