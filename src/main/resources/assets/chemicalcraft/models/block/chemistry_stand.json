@@ -2,10 +2,31 @@
 	"__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
 	"__comment2": "This file has been well-commented because of the complicated model. Make sure you read the comments, or texturing might be very hard.",
 	"__comment3": "The most important reason for this is because the model has been optimized thoroughly, since it comprises of many seperate element, that have been mapped to behave as one.",
-
-	"__comment4": "Inherits block/block to copy display data.",
+	
+	"__comment5": "Inherits block/block to copy display data.",
 	"parent": "block/block",
-	"textures": {},
+	"textures": {
+		"#lowside-back": "chemicalcraft:blocks/TODO",
+		"#lowside-inner": "chemicalcraft:blocks/TODO",
+		"#lowside-front": "chemicalcraft:blocks/TODO",
+		"#lowside-outer": "chemicalcraft:blocks/TODO",
+		"#lowside-up": "chemicalcraft:blocks/TODO",
+		"#lowside-down": "chemicalcraft:blocks/TODO",
+		"#highside-back": "chemicalcraft:blocks/TODO",
+		"#highside-outer": "chemicalcraft:blocks/TODO",
+		"#highside-front": "chemicalcraft:blocks/TODO",
+		"#highside-inner": "chemicalcraft:blocks/TODO",
+		"#highside-up": "chemicalcraft:blocks/TODO",
+		"#plate-back": "chemicalcraft:blocks/TODO",
+		"#plate-front": "chemicalcraft:blocks/TODO",
+		"#plate-up": "chemicalcraft:blocks/TODO",
+		"#plate-down": "chemicalcraft:blocks/TODO",
+		"#highplate-back": "chemicalcraft:blocks/TODO",
+		"#highplate-inside": "chemicalcraft:blocks/TODO",
+		"#highplate-up": "chemicalcraft:blocks/TODO",
+		"#highplate-down": "chemicalcraft:blocks/TODO",
+		"#highplate-front": "chemicalcraft:blocks/TODO"
+	},
 	"elements": [
 		{
 			"__comment": "Left and right sides, both high and low, use the same textures, except the left and right sides are swapped.",
