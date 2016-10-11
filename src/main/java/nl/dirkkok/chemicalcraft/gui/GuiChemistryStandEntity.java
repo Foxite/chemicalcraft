@@ -14,4 +14,14 @@ public class GuiChemistryStandEntity extends GuiContainer {
 	
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {}
+	
+	@Override
+	protected void drawGuiForegroundLayer(int mouseX, int mouseY) {}
+	
+	@Override
+	protected void drawScreen(int mouseX, int mouseY, float partialTicks) {
+		super(mouseX, mouseY, partialTicks);
+		
+		mc.getTextureManager().bindTexture(ResourceLocation
+	}
 }
