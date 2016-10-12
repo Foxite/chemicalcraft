@@ -7,3 +7,5 @@ item.residue_tray.name=Residue Tray
 
 tile.test_block.name=Test Item (DEBUG)
 tile.chemistry_stand.name=Chemistry Stand
+
+container.chemistry_stand=Chemistry Stand
