@@ -9,54 +9,46 @@ import nl.dirkkok.chemicalcraft.tileentity.ChemistryStandEntity;
 
 public class ContainerChemistryStandEntity extends Container {
 	private ChemistryStandEntity te;
-	private int operationTime; // In ticks
-	private int fuelTime; // In ticks; value does not matter if unused and will only be reset when mode changes to HEAT
-	private int maxFuelTime; // Used to determine % of fuel left; remains active even if mode is not HEAT
 	
 	/* Initializes the container for the GUI and adds slots to it.
 	 *
 	 * GUI structure:
 	 * Progress bar is centered. The rest of the gui is build around it. Elements are spaced by 5 pixels.
-	 * progress bar: x = 8 + 16 * 4 = 72, y = 17 + 16 = 33; (72, 33)
-	 * second input slot: x = 72 - 21 = 51 (51, 33)
-	 * first input slot: x = 51 - 21 = 30 (30, 33)
-	 * first output slot: x = 72 + 21 = 93 (92, 33)
-	 * second output slot: x = 93 + 21 = 114 (114, 33)
-	 * residue slot: below first output slot, y = 33 + 21 = 54 (92, 54)
-	 * fuel meter: below progress bar, y = 54 (72, 54)
-	 * fuel slot: left of fuel meter and below second input (51, 54)
-	 * mode button: above progress bar, y = 33 - 21 = 12 (72, 12)
+	 * progress bar: (76, 29) to (100, 46)
+	 * first input slot: (54, 28) to (72, 45)
+	 * second input slot: (31, 28) to (48, 45)
+	 * first output slot: (104, 28) to (121, 45)
+	 * second output slot: (127, 28) to (144, 45)
+	 * residue slot: (104, 51) to (121, 68)
+	 * fuel meter: (80, 53) to (93, 66)
+	 * fuel slot: (54, 51) to (71, 68)
+	 * mode button: (78, 4) to (97, 23)
 	 *
-	 * Slot IDs:      Slots  IDs
-	 * Tile entity:   0-5
-	 * Player craft:  0-4
-	 * Player armor:  5-8
-	 * Player inv:    9-35
-	 * Player hotbar: 36-44
-	 * Offhand slot:  45
+	 * Slot IDs:
+	 * Tile Entity:
+	 * Player inventory:
+	 *
 	 */
 	public ContainerChemistryStandEntity(IInventory inv, ChemistryStandEntity te) {
 		this.te = te;
 		
 		// Add slots for the tile entity, slots 0-5
-		this.addSlotToContainer(new Slot(te, 0, 30,  33)); // First input
-		this.addSlotToContainer(new Slot(te, 1, 51,  33)); // Second input
-		this.addSlotToContainer(new Slot(te, 2, 92,  33)); // First output
-		this.addSlotToContainer(new Slot(te, 3, 114, 33)); // Second output
-		this.addSlotToContainer(new Slot(te, 4, 92,  54)); // Residue
-		this.addSlotToContainer(new Slot(te, 5, 51,  54)); // Fuel
+		this.addSlotToContainer(new Slot(te, 0, 55,  29)); // First input
+		this.addSlotToContainer(new Slot(te, 1, 32,  29)); // Second input
+		this.addSlotToContainer(new Slot(te, 2, 105, 29)); // First output
+		this.addSlotToContainer(new Slot(te, 3, 128, 29)); // Second output
+		this.addSlotToContainer(new Slot(te, 4, 105, 52)); // Residue
+		this.addSlotToContainer(new Slot(te, 5, 55,  52)); // Fuel
 		
-		// Add slots for player inventory
-		// Main inventory, slots 9 to 35, IDs 6-32
-		for (int y = 0; y < 3; y++) {
-			for (int x = 0; x < 9; x++) {
-				this.addSlotToContainer(new Slot(inv, x + y * 9 + 6, 8 + x * 18, 84 + y * 18));
+		// Add slots for the player inventory (copied from ContainerFurnace)
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 9; j++)	{
+				this.addSlotToContainer(new Slot(inv, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
 			}
 		}
 		
-		// Hotbar, slots 0-8, IDs 33-41
-		for (int x = 0; x < 9; x++) {
-			this.addSlotToContainer(new Slot(inv, x + 33, 8 + x * 18, 142));
+		for (int i = 0; i < 9; i++)	{
+			this.addSlotToContainer(new Slot(inv, i, 8 + i * 18, 142));
 		}
 	}
 	
