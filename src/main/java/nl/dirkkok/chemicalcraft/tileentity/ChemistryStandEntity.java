@@ -5,11 +5,13 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -34,6 +36,10 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 	private ItemStack[] inventory;
 	private Mode mode;
 	private String customName;
+	private int operationTime; // In ticks
+	private int fuelTime; // In ticks; value does not matter if unused and will only be reset when mode changes to HEAT
+	private int maxFuelTime; // Used to determine % of fuel left; remains active even if mode is not HEAT
+	
 	
 	public ChemistryStandEntity() {
 		this.inventory = new ItemStack[this.getSizeInventory()];
@@ -163,7 +169,7 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 	
 	@Override
 	public String getName() {
-		return this.hasCustomName() ? this.customName : "container.tutorial_tile_entity";
+		return this.hasCustomName() ? this.customName : "container.chemistry_stand";
 	}
 	
 	@Override
@@ -218,19 +224,25 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 	
 	@Override
 	public boolean isItemValidForSlot(int index, ItemStack stack) {
-		return true;
-		/*
-		// Only allow test tubes (with any contents) in slots 0,1,2,4, and residue trays in slot 3.
+		// Only allow test tubes (with any contents) in slots 0 and 1
 		if (index == 0 || index == 1 || index == 2 || index == 4) {
 			if (stack.getItem().getUnlocalizedName().equals("test_tube")) {
 				return true;
 			}
-		} else if (index == 3 ) {
+			// Only allow residue trays in slot 4
+		} else if (index == 3) {
 			if (stack.getItem().getUnlocalizedName().equals("residue_tray")) {
 				return true;
 			}
+			// Only allow fuel items in slot 5
+		} else if (index == 6) {
+			if (GameRegistry.getFuelValue(stack) > 0) {
+				return true;
+			}
 		}
-		return false;*/
+		// Do not allow insertion into slots 2 and 3
+		
+		return false;
 	}
 	
 	@Override
