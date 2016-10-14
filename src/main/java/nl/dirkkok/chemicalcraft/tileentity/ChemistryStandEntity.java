@@ -5,7 +5,6 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.text.ITextComponent;
@@ -21,7 +20,7 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 	private static final Logger log = LogManager.getLogger();
 	
 	private enum Mode {
-		REACT(0), HEAT(1), FILTER(2);
+		HEAT(0), REACT(1), FILTER(2);
 		
 		private int value;
 		Mode(int value) {
@@ -67,6 +66,10 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 		
 		nbt.setInteger("mode", mode.getValue());
 		
+		nbt.setInteger("operationTime", this.operationTime);
+		nbt.setInteger("fuelTime", this.fuelTime);
+		nbt.setInteger("maxFuelTime", this.maxFuelTime);
+		
 		return nbt;
 	}
 	
@@ -97,10 +100,27 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 							   "(mode = " + nbt.getInteger("mode") + ") falling back to react.");
 		}
 		
+		this.operationTime = nbt.getInteger("operationTime");
+		this.fuelTime = nbt.getInteger("fuelTime");
+		this.maxFuelTime = nbt.getInteger("maxFuelTime");
+		
 	}
 	
 	@Override
-	public void update() {}
+	public void update() {
+		if (fuelTime > 0) {
+			fuelTime--;
+		}
+		if (operationTime > 0) {
+			operationTime--; // TODO when the stand is active, add bubble particles
+	}
+		// TODO temporary
+		if (inventory[0] != null) {
+			log.error("UPDATE");
+			maxFuelTime = 100;
+			fuelTime = 100;
+		}
+	}
 	
 	private String getCustomName() {
 		return customName;
@@ -260,13 +280,27 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 		}
 	}
 	
-	public int setMode(int mode) {
+	public void setMode(int mode) {
 		switch (mode) {
 			case 0: this.mode = Mode.REACT;
+					break;
 			case 1: this.mode = Mode.HEAT;
+					break;
 			case 2: this.mode = Mode.FILTER;
+					break;
 			default: throw new RuntimeException("Invalid chemistry stand mode! (mode=" + mode + ")");
 		}
 	}
 	
+	public int getFuelTime() {
+		return fuelTime;
+	}
+	
+	public int getMaxFuelTime() {
+		return maxFuelTime;
+	}
+	
+	public int getOperationTime() {
+		return operationTime;
+	}
 }
