@@ -13,9 +13,11 @@ import java.io.IOException;
 
 public class GuiChemistryStandEntity extends GuiContainer {
 	private static final Logger log = LogManager.getLogger();
-	private final ChemistryStandEntity te;
+	final ChemistryStandEntity te;
 	private final IInventory playerInv;
 	private GuiButton modeButton;
+	int i;
+	int j;
 	
 	public GuiChemistryStandEntity(IInventory playerInv, ChemistryStandEntity te) {
 		super(new ContainerChemistryStandEntity(playerInv, te));
@@ -62,12 +64,12 @@ public class GuiChemistryStandEntity extends GuiContainer {
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 		GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
 		mc.getTextureManager().bindTexture(new ResourceLocation("chemicalcraft:textures/gui/chemical_stand.png"));
-		int i = (this.width - this.xSize) / 2;
-		int j = (this.height - this.ySize) / 2;
+		i = (this.width - this.xSize) / 2;
+		j = (this.height - this.ySize) / 2;
 		
-		this.drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize); // GUI background
+		this.drawTexturedModalRect(this.i, this.j, 0, 0, this.xSize, this.ySize); // GUI background
 		
-		if (mouseX >= 78 && mouseX <= 97 && mouseY >= 4 && mouseY <= 23) { // Mode button
+		/*if (mouseX >= 78 && mouseX <= 97 && mouseY >= 4 && mouseY <= 23) { // Mode button
 			// Inside box
 			this.drawTexturedModalRect(this.guiLeft + 30, this.guiTop + 50, 176, 51, 20, 20);
 		} else {
@@ -76,13 +78,13 @@ public class GuiChemistryStandEntity extends GuiContainer {
 		}
 		
 		switch (this.te.getMode()) {
-			case 0: this.drawTexturedModalRect(i + 30, j + 50, 176, 71,  20, 20);
+			case 0: this.drawTexturedModalRect(this.i + 30, this.j + 50, 176, 71,  20, 20);
 				break;
-			case 1: this.drawTexturedModalRect(i + 30, j + 50, 176, 91,  20, 20);
+			case 1: this.drawTexturedModalRect(this.i + 30, this.j + 50, 176, 91,  20, 20);
 				break;
-			case 2: this.drawTexturedModalRect(i + 30, j + 50, 176, 111, 20, 20);
+			case 2: this.drawTexturedModalRect(this.i + 30, this.j + 50, 176, 111, 20, 20);
 				break;
-		}
+		}*/
 		
 		if (te.getFuelTime() > 0) {
 			log.error("FUELTIME");
@@ -94,17 +96,6 @@ public class GuiChemistryStandEntity extends GuiContainer {
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		mc.getTextureManager().bindTexture(new ResourceLocation("chemicalcraft:textures/gui/chemical_stand.png"));
-		int i = (this.width - this.xSize) / 2;
-		int j = (this.height - this.ySize) / 2;
-		
-		/*switch (this.te.getMode()) {
-			case 0: this.drawTexturedModalRect(i + 30, j + 50, 176, 71,  20, 20);
-				break;
-			case 1: this.drawTexturedModalRect(i + 30, j + 50, 176, 91,  20, 20);
-				break;
-			case 2: this.drawTexturedModalRect(i + 30, j + 50, 176, 111, 20, 20);
-				break;
-		}*/
 		
 		String s = this.te.getDisplayName().getUnformattedText();
 		this.fontRendererObj.drawString(s, this.xSize / 2 - this.fontRendererObj.getStringWidth(s) / 2, 6, 0x404040);
@@ -118,26 +109,9 @@ public class GuiChemistryStandEntity extends GuiContainer {
 	}
 	
 	@Override
-	public void mouseClicked(int mouseX, int mouseY, int button) throws IOException {
-		if (mouseX >= 156 && mouseX <= 175 && mouseY >= 88 && mouseY <= 107 && button == 0) { // Mode button
-			switch (te.getMode()) {
-				case 0: this.te.setMode(1);
-						break;
-				case 1: this.te.setMode(2);
-						break;
-				case 2: this.te.setMode(0);
-						break;
-			}
-		}
-		
-		super.mouseClicked(mouseX, mouseY, button);
-	}
-	
-	/*
-	@Override
 	public void initGui() {
 		super.initGui();
-		this.buttonList.add(this.modeButton = new GuiButton(0, this.guiLeft + 30, this.guiTop + 50, 20, 20, ""));
+		this.buttonList.add(this.modeButton = new ChemStandModeButton(0, this.guiLeft + 30, this.guiTop + 50, this));
 	}
 	
 	@Override
@@ -152,5 +126,5 @@ public class GuiChemistryStandEntity extends GuiContainer {
 						break;
 			}
 		}
-	}*/
+	}
 }
