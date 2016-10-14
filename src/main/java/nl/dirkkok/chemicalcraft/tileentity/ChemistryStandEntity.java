@@ -64,6 +64,7 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 			nbt.setString("customName", this.getCustomName());
 		}
 		
+		log.error(mode.getValue());
 		nbt.setInteger("mode", mode.getValue());
 		
 		nbt.setInteger("operationTime", this.operationTime);
@@ -89,9 +90,9 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 		}
 		
 		switch (nbt.getInteger("mode")) {
-			case 0: mode = Mode.REACT;
+			case 0: mode = Mode.HEAT;
 					break;
-			case 1: mode = Mode.HEAT;
+			case 1: mode = Mode.REACT;
 					break;
 			case 2: mode = Mode.FILTER;
 					break;
@@ -290,6 +291,8 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 					break;
 			default: throw new RuntimeException("Invalid chemistry stand mode! (mode=" + mode + ")");
 		}
+		
+		log.error("Mode is now " + mode);
 	}
 	
 	public int getFuelTime() {
