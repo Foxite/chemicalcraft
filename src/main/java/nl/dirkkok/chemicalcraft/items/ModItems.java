@@ -16,7 +16,7 @@ public final class ModItems {
 	};
 
 	public static void createItems() {
-		GameRegistry.register(testTube = new BasicItem("test_tube"));
+		GameRegistry.register(testTube = new TestTube());
 		GameRegistry.register(residueTray = new BasicItem("residue_tray"));
 	}
 }

@@ -2,8 +2,11 @@
 30 seconds, so this is just UTF-8. It only matters when we do special letters though, so don't do that. >
 itemGroup.chemicalCraft=ChemicalCraft
 
-item.test_tube.name=Test Tube
 item.residue_tray.name=Residue Tray
+item.test_tube.name=Test Tube
+item.test_tube_water.name=Test Tube
+item.test_tube_purewater.name=Test Tube
+item.test_tube_nacl.name=Test Tube
 
 tile.test_block.name=Test Item (DEBUG)
 tile.chemistry_stand.name=Chemistry Stand
