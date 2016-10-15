@@ -15,8 +15,8 @@ public class ContainerChemistryStandEntity extends Container {
 	 * GUI structure:
 	 * Progress bar is centered. The rest of the gui is build around it. Elements are spaced by 5 pixels.
 	 * progress bar: (76, 29) to (100, 46)
-	 * first input slot: (54, 28) to (72, 45)
-	 * second input slot: (31, 28) to (48, 45)
+	 * first input slot: (31, 28) to (48, 45)
+	 * second input slot: (54, 28) to (72, 45)
 	 * first output slot: (104, 28) to (121, 45)
 	 * second output slot: (127, 28) to (144, 45)
 	 * residue slot: (104, 51) to (121, 68)
@@ -33,8 +33,8 @@ public class ContainerChemistryStandEntity extends Container {
 		this.te = te;
 		
 		// Add slots for the tile entity, slots 0-5
-		this.addSlotToContainer(new Slot(te, 0, 55,  29)); // First input
-		this.addSlotToContainer(new Slot(te, 1, 32,  29)); // Second input
+		this.addSlotToContainer(new Slot(te, 0, 32,  29)); // First input
+		this.addSlotToContainer(new Slot(te, 1, 55,  29)); // Second input
 		this.addSlotToContainer(new Slot(te, 2, 105, 29)); // First output
 		this.addSlotToContainer(new Slot(te, 3, 128, 29)); // Second output
 		this.addSlotToContainer(new Slot(te, 4, 105, 52)); // Residue

@@ -1,8 +1,10 @@
 package nl.dirkkok.chemicalcraft.tileentity;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ITickable;
@@ -18,6 +20,7 @@ import javax.annotation.Nullable;
 
 public class ChemistryStandEntity extends TileEntity implements ITickable, IInventory {
 	private static final Logger log = LogManager.getLogger();
+	private boolean isActive;
 	
 	private enum Mode {
 		HEAT(0), REACT(1), FILTER(2);
@@ -64,7 +67,6 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 			nbt.setString("customName", this.getCustomName());
 		}
 		
-		log.error(mode.getValue());
 		nbt.setInteger("mode", mode.getValue());
 		
 		nbt.setInteger("operationTime", this.operationTime);
@@ -109,17 +111,55 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 	
 	@Override
 	public void update() {
+		// Fuel checks
 		if (fuelTime > 0) {
 			fuelTime--;
+			if (mode == Mode.HEAT && canDoOperation()) {
+				operationTime++;
+			}
+		} else if (maxFuelTime != 0) { // Only gets checked if fuelTime == 0
+			maxFuelTime = 0;
+			if (mode == Mode.HEAT) { // Out of fuel for process
+				operationTime = 0; // Cancel process
+			}
 		}
-		if (operationTime > 0) {
-			operationTime--; // TODO when the stand is active, add bubble particles
+		
+		// Operation checks
+		if (canDoOperation() && operationTime < 200) { // Operations take 200 ticks, or 10 seconds.
+			operationTime++; // TODO when the stand is active, add bubble particles
+		} else { // Operation is finished.
+			operationTime = 0;
+			doOperation(); // Redo operation
+		}
+		
+		// Reload fuel
+		if (fuelTime == 0 && inventory[5] != null && maxFuelTime == 0) {
+			if (getFuelTimeOfItem(inventory[5].getItem()) > 0) {
+				fuelTime = getFuelTimeOfItem(inventory[5].getItem());
+				maxFuelTime = getFuelTimeOfItem(inventory[5].getItem());
+				this.decrStackSize(5, 1);
+			}
+		}
 	}
-		// TODO temporary
-		if (inventory[0] != null) {
-			log.error("UPDATE");
-			maxFuelTime = 100;
-			fuelTime = 100;
+	
+	private boolean canDoOperation() {
+		// TODO add more recipes
+		// REACT recipes
+		
+		// HEAT recipes
+		
+		// FILTER recipes
+		
+		
+		return false;
+	}
+	
+	private void doOperation() {
+		if (canDoOperation()) {
+			isActive = true;
+			// TODO
+		} else {
+			isActive = false;
 		}
 	}
 	
@@ -245,24 +285,28 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 	
 	@Override
 	public boolean isItemValidForSlot(int index, ItemStack stack) {
+		log.error("isItemValidForSlot()");
 		// Only allow test tubes (with any contents) in slots 0 and 1
 		if (index == 0 || index == 1 || index == 2 || index == 4) {
 			if (stack.getItem().getUnlocalizedName().equals("test_tube")) {
+				log.error("true");
 				return true;
 			}
 			// Only allow residue trays in slot 4
 		} else if (index == 3) {
 			if (stack.getItem().getUnlocalizedName().equals("residue_tray")) {
+				log.error("true");
 				return true;
 			}
 			// Only allow fuel items in slot 5
 		} else if (index == 6) {
 			if (GameRegistry.getFuelValue(stack) > 0) {
+				log.error("true");
 				return true;
 			}
 		}
 		// Do not allow insertion into slots 2 and 3
-		
+		log.error("false");
 		return false;
 	}
 	
@@ -303,7 +347,21 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 		return maxFuelTime;
 	}
 	
+	public int getFuelTimeOfItem(Item item) {
+		if (item instanceof ItemTool && "WOOD".equals(((ItemTool)item).getToolMaterialName())) return 200;
+		if (item instanceof ItemSword && "WOOD".equals(((ItemSword)item).getToolMaterialName())) return 200;
+		if (item instanceof ItemHoe && "WOOD".equals(((ItemHoe)item).getMaterialName())) return 200;
+		if (item == Items.STICK) return 100;
+		if (item == Items.COAL) return 1600;
+		if (item == Items.LAVA_BUCKET) return 20000;
+		if (item == Item.getItemFromBlock(Blocks.SAPLING)) return 100;
+		if (item == Items.BLAZE_ROD) return 2400;
+		return GameRegistry.getFuelValue(inventory[5]);
+	}
+	
 	public int getOperationTime() {
 		return operationTime;
 	}
+	
+	public boolean isActive() { return isActive; };
 }

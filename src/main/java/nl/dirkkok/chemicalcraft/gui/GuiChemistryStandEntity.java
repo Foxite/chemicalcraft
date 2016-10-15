@@ -69,27 +69,14 @@ public class GuiChemistryStandEntity extends GuiContainer {
 		
 		this.drawTexturedModalRect(this.i, this.j, 0, 0, this.xSize, this.ySize); // GUI background
 		
-		/*if (mouseX >= 78 && mouseX <= 97 && mouseY >= 4 && mouseY <= 23) { // Mode button
-			// Inside box
-			this.drawTexturedModalRect(this.guiLeft + 30, this.guiTop + 50, 176, 51, 20, 20);
-		} else {
-			// Outside box
-			this.drawTexturedModalRect(this.guiLeft + 30, this.guiTop + 50, 176, 31, 20, 20);
+		if (te.getFuelTime() > 0) {
+			int scale = (int) Math.ceil(((double) this.te.getFuelTime()) / (double) (this.te.getMaxFuelTime()) * 13.0);
+			this.drawTexturedModalRect(i + 80, j + 65 - scale, 176, 12 - scale, 13, scale + 1);
 		}
 		
-		switch (this.te.getMode()) {
-			case 0: this.drawTexturedModalRect(this.i + 30, this.j + 50, 176, 71,  20, 20);
-				break;
-			case 1: this.drawTexturedModalRect(this.i + 30, this.j + 50, 176, 91,  20, 20);
-				break;
-			case 2: this.drawTexturedModalRect(this.i + 30, this.j + 50, 176, 111, 20, 20);
-				break;
-		}*/
-		
-		if (te.getFuelTime() > 0) {
-			log.error("FUELTIME");
-			int scale = (int) Math.ceil((double) this.te.getFuelTime() / this.te.getMaxFuelTime() * 13);
-			this.drawTexturedModalRect(i + 76, j + 29, 176, 189, 13, scale);
+		if (te.getOperationTime() > 0) {
+			int scale = (int) Math.ceil(((double) this.te.getOperationTime() / 200.0) * 24.0);
+			this.drawTexturedModalRect(i + 76, j + 29, 176, 14, scale + 1, 16);
 		}
 	}
 	
