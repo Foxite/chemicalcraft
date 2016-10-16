@@ -1,9 +1,22 @@
 package nl.dirkkok.chemicalcraft.items;
 
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.World;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
@@ -15,6 +28,8 @@ import java.util.List;
  *
  */
 public class TestTube extends BasicItem {
+	private static final Logger log = LogManager.getLogger(); // TODO for debugging only, remove
+	
 	public TestTube() {
 		super("test_tube");
 		this.setHasSubtypes(true);
@@ -51,5 +66,25 @@ public class TestTube extends BasicItem {
 			default: type = "Empty"; break;
 		}
 		tooltip.add(type);
+	}
+	
+	// Code "borrowed" from net.minecraft.item.ItemBucket.
+	@Override
+	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
+		if (stack.getItemDamage() != 0) return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);
+		
+		RayTraceResult raytraceresult = this.rayTrace(world, player, true);
+		
+		if (raytraceresult.typeOfHit == RayTraceResult.Type.BLOCK) {
+			BlockPos blockpos = raytraceresult.getBlockPos(); // Position of block the player is looking at.
+			IBlockState blockState = world.getBlockState(blockpos);
+			Material material = blockState.getMaterial();
+			if (material == Material.WATER) {
+				stack.setItemDamage(1);
+				return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
+			}
+		}
+		
+		return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);
 	}
 }
