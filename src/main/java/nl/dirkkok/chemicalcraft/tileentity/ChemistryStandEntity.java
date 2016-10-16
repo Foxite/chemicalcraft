@@ -13,6 +13,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import nl.dirkkok.chemicalcraft.items.ModItems;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,7 +21,6 @@ import javax.annotation.Nullable;
 
 public class ChemistryStandEntity extends TileEntity implements ITickable, IInventory {
 	private static final Logger log = LogManager.getLogger();
-	private boolean isActive;
 	
 	private enum Mode {
 		HEAT(0), REACT(1), FILTER(2);
@@ -45,7 +45,7 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 	
 	public ChemistryStandEntity() {
 		this.inventory = new ItemStack[this.getSizeInventory()];
-		this.mode = Mode.REACT;
+		this.mode = Mode.HEAT;
 	}
 	
 	@Override
@@ -114,53 +114,110 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 		// Fuel checks
 		if (fuelTime > 0) {
 			fuelTime--;
-			if (mode == Mode.HEAT && canDoOperation()) {
-				operationTime++;
-			}
 		} else if (maxFuelTime != 0) { // Only gets checked if fuelTime == 0
 			maxFuelTime = 0;
-			if (mode == Mode.HEAT) { // Out of fuel for process
-				operationTime = 0; // Cancel process
-			}
-		}
-		
-		// Operation checks
-		if (canDoOperation() && operationTime < 200) { // Operations take 200 ticks, or 10 seconds.
-			operationTime++; // TODO when the stand is active, add bubble particles
-		} else { // Operation is finished.
-			operationTime = 0;
-			doOperation(); // Redo operation
 		}
 		
 		// Reload fuel
-		if (fuelTime == 0 && inventory[5] != null && maxFuelTime == 0) {
+		if (fuelTime == 0 && inventory[5] != null) {
 			if (getFuelTimeOfItem(inventory[5].getItem()) > 0) {
 				fuelTime = getFuelTimeOfItem(inventory[5].getItem());
 				maxFuelTime = getFuelTimeOfItem(inventory[5].getItem());
 				this.decrStackSize(5, 1);
 			}
 		}
+		
+		// Operation checks
+		// Operations take 200 ticks, or 10 seconds.
+		if (canDoOperation() && operationTime < 200) { // Operation is in progress or is ready to start.
+			operationTime++; // TODO when the stand is active, add bubble particles
+		} else if (canDoOperation() && operationTime == 200) { // Operation is finished.
+			operationTime = 0;
+			doOperation();
+		} else if (!canDoOperation() && operationTime != 0 && operationTime < 200) { // Items were removed prematurely.
+			operationTime = 0;
+		}
+		
 	}
 	
 	private boolean canDoOperation() {
-		// TODO add more recipes
-		// REACT recipes
+		if (inventory[0] == null) return false;
 		
 		// HEAT recipes
+		if (mode == Mode.HEAT) {
+			if (inventory[1] != null) return false;
+			if (fuelTime == 0) return false;
+			
+			// Water -> H2O + NaCl (TODO residue)
+			if (getTubeMetadata(0) == 1) {
+				if ((inventory[2] == null || getTubeMetadata(2) == 2)
+						&& (inventory[3] == null || getTubeMetadata(3) == 3)) {
+					return true;
+				}
+			}
+		}
+		
+		// REACT recipes
+		if (mode == Mode.REACT) {
+			if (inventory[1] == null) return false;
+			
+		}
 		
 		// FILTER recipes
-		
+		if (mode == Mode.FILTER) {
+			if (inventory[1] != null) return false;
+			
+		}
 		
 		return false;
 	}
 	
+	/* This removes the input items and adds to the output slots.
+	 */
 	private void doOperation() {
-		if (canDoOperation()) {
-			isActive = true;
-			// TODO
-		} else {
-			isActive = false;
+		// We don't have to check canDoOperation(), because all calls to this method will have done that beforehand.
+		// This means that we can skip a lot of checks in this method.
+		
+		// REACT recipes
+		if (mode == Mode.REACT) {
+			
 		}
+		
+		// HEAT recipes
+		if (mode == Mode.HEAT) {
+			// Water -> H2O + NaCl (TODO residue)
+			if (getTubeMetadata(0) == 1) {
+				// Remove items from input
+				decrStackSize(0, 1);
+				
+				if (inventory[2] == null) {
+					inventory[2] = new ItemStack(ModItems.testTube, 1, 2);
+				} else if (getTubeMetadata(2) == 2) {
+					decrStackSize(2, -1); // Increase stack size by 1. I have checked everything, it will work.
+				}
+				if (inventory[3] == null) {
+					inventory[3] = new ItemStack(ModItems.testTube, 1, 3);
+				} else if (getTubeMetadata(3) == 3) {
+					decrStackSize(3, -1);
+				}
+				
+			}
+		}
+		
+		// FILTER recipes
+		if (mode == Mode.FILTER) {
+			
+		}
+	}
+	
+	private int getTubeMetadata(int slot) {
+		if (inventory[slot] == null) {
+			return 0;
+		}
+		if (inventory[slot].getItem() == ModItems.testTube) {
+			return inventory[slot].getItemDamage();
+		}
+		return -1;
 	}
 	
 	private String getCustomName() {
@@ -317,19 +374,14 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 	}
 	
 	public int getMode() {
-		switch (mode) {
-			case REACT:  return 0;
-			case HEAT:   return 1;
-			case FILTER: return 2;
-			default: return 0; // There is no way this can happen, but Java insists that I add this line.
-		}
+		return mode.getValue();
 	}
 	
 	public void setMode(int mode) {
 		switch (mode) {
-			case 0: this.mode = Mode.REACT;
+			case 0: this.mode = Mode.HEAT;
 					break;
-			case 1: this.mode = Mode.HEAT;
+			case 1: this.mode = Mode.REACT;
 					break;
 			case 2: this.mode = Mode.FILTER;
 					break;
@@ -347,7 +399,7 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 		return maxFuelTime;
 	}
 	
-	public int getFuelTimeOfItem(Item item) {
+	private int getFuelTimeOfItem(Item item) {
 		if (item instanceof ItemTool && "WOOD".equals(((ItemTool)item).getToolMaterialName())) return 200;
 		if (item instanceof ItemSword && "WOOD".equals(((ItemSword)item).getToolMaterialName())) return 200;
 		if (item instanceof ItemHoe && "WOOD".equals(((ItemHoe)item).getMaterialName())) return 200;
@@ -363,5 +415,4 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 		return operationTime;
 	}
 	
-	public boolean isActive() { return isActive; };
 }
