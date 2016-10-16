@@ -20,11 +20,11 @@ class ChemStandModeButton extends GuiButton {
 		
 		mc.getTextureManager().bindTexture(new ResourceLocation("chemicalcraft:textures/gui/chemical_stand.png"));
 		switch (this.te.getMode()) {
-			case 0: this.drawTexturedModalRect(gui.i + 30, gui.j + 50, 176, 71,  20, 20);
+			case 0: this.drawTexturedModalRect(gui.i + 30, gui.j + 50, 176, 71,  20, 20); // HEAT
 				break;
-			case 1: this.drawTexturedModalRect(gui.i + 30, gui.j + 50, 176, 91,  20, 20);
+			case 1: this.drawTexturedModalRect(gui.i + 30, gui.j + 50, 176, 91,  20, 20); // REACT
 				break;
-			case 2: this.drawTexturedModalRect(gui.i + 30, gui.j + 50, 176, 111, 20, 20);
+			case 2: this.drawTexturedModalRect(gui.i + 30, gui.j + 50, 176, 111, 20, 20); // FILTER
 				break;
 		}
 	}
