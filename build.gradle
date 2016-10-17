@@ -20,12 +20,12 @@ plugins {
     id "net.minecraftforge.gradle.forge" version "2.0.2"
 }
 */
-version = "1.0"
-group= "com.yourname.modid" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "modid"
+version = "0.1"
+group= "nl.dirkkok.chemicalcraft" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "chemicalcraft"
 
 minecraft {
-    version = "1.10.2-12.18.1.2011"
+    version = "1.10.2-12.18.2.2097"
     runDir = "run"
     
     // the mappings can be changed at any time, and must be in the following format.
@@ -36,6 +36,11 @@ minecraft {
     mappings = "snapshot_20160518"
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 }
+
+repositories {
+    mavenCentral()
+}
+
 
 dependencies {
     // you may put jars on which you depend on in ./libs
@@ -58,6 +63,8 @@ dependencies {
     // for more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
+
+    compile group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.0'
 
 }
 
