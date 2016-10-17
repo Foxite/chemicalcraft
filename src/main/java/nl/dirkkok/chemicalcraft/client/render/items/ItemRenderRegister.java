@@ -14,6 +14,8 @@ public final class ItemRenderRegister {
 		reg(ModItems.testTube, 1, "test_tube_water");
 		reg(ModItems.testTube, 2, "test_tube_purewater");
 		reg(ModItems.testTube, 3, "test_tube_nacl");
+		reg(ModItems.tableSalt);
+		reg(ModItems.saltpeterDust);
 	}
 	
 	private static void reg(Item item) {

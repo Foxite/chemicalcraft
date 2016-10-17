@@ -7,8 +7,9 @@ item.test_tube.name=Test Tube
 item.test_tube_water.name=Test Tube
 item.test_tube_purewater.name=Test Tube
 item.test_tube_nacl.name=Test Tube
+item.table_salt.name=Table Salt
 
-tile.test_block.name=Test Item (DEBUG)
 tile.chemistry_stand.name=Chemistry Stand
+tile.saltpeter_ore.name=Saltpeter Ore
 
 container.chemistry_stand=Chemistry Stand

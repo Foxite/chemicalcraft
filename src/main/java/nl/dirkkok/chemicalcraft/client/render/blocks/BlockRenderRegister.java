@@ -11,8 +11,9 @@ public final class BlockRenderRegister {
 	private static String modid = ChemicalCraft.MODID;
 
 	public static void registerBlockRenderer() {
-		reg(ModBlocks.testBlock);
 		reg(ModBlocks.chemStand);
+		reg(ModBlocks.saltpeterOre);
+		reg(ModBlocks.corkWood);
 	}
 
 	private static void reg(Block block) {
