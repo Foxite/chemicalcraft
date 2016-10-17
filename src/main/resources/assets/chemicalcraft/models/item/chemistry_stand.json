@@ -1,5 +1,4 @@
 {
 	"parent": "chemicalcraft:block/chemistry_stand",
-	"display": {
-	}
+	"display": {}
 }
