@@ -7,8 +7,8 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.ITickable;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -21,6 +21,7 @@ import javax.annotation.Nullable;
 
 public class ChemistryStandEntity extends TileEntity implements ITickable, IInventory {
 	private static final Logger log = LogManager.getLogger();
+	private boolean recipeWillCauseExplosion;
 	
 	private enum Mode {
 		HEAT(0), REACT(1), FILTER(2);
@@ -141,6 +142,7 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 	}
 	
 	private boolean canDoOperation() {
+		recipeWillCauseExplosion = false;
 		if (inventory[0] == null) return false;
 		
 		// HEAT recipes
@@ -151,9 +153,15 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 			// Water -> H2O + NaCl (TODO residue)
 			if (getTubeMetadata(0) == 1) {
 				if ((inventory[2] == null || getTubeMetadata(2) == 2)
-						&& (inventory[3] == null || getTubeMetadata(3) == 3)) {
+						&& (inventory[3] == null || inventory[3].getItem() == ModItems.tableSalt)) {
 					return true;
 				}
+			}
+			
+			// Gunpowder -> Boom
+			if (inventory[0].getItem() == Items.GUNPOWDER) {
+				recipeWillCauseExplosion = true;
+				return true;
 			}
 		}
 		
@@ -173,15 +181,11 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 	}
 	
 	/* This removes the input items and adds to the output slots.
+	 * NOTE TO SELF: World.createExplosion()
 	 */
 	private void doOperation() {
 		// We don't have to check canDoOperation(), because all calls to this method will have done that beforehand.
 		// This means that we can skip a lot of checks in this method.
-		
-		// REACT recipes
-		if (mode == Mode.REACT) {
-			
-		}
 		
 		// HEAT recipes
 		if (mode == Mode.HEAT) {
@@ -197,11 +201,22 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 				}
 				if (inventory[3] == null) {
 					inventory[3] = new ItemStack(ModItems.testTube, 1, 3);
-				} else if (getTubeMetadata(3) == 3) {
+				} else if (inventory[3].getItem() == ModItems.tableSalt) {
 					decrStackSize(3, -1);
 				}
 				
 			}
+			
+			if (inventory[0].getItem() == Items.GUNPOWDER) {
+				if (!this.worldObj.isRemote) {
+					worldObj.createExplosion(null, this.pos.getX(), this.pos.getY(), this.pos.getZ(), 3.0F, true);
+				}
+			}
+		}
+		
+		// REACT recipes
+		if (mode == Mode.REACT) {
+			
 		}
 		
 		// FILTER recipes
@@ -210,10 +225,14 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 		}
 	}
 	
+	/* Returns the metadata of the item in inventory[slot] if it's a test tube.
+	 * If it's not a test tube, this returns -1.
+	 */
 	private int getTubeMetadata(int slot) {
+		/*
 		if (inventory[slot] == null) {
 			return 0;
-		}
+		}*/
 		if (inventory[slot].getItem() == ModItems.testTube) {
 			return inventory[slot].getItemDamage();
 		}
@@ -414,5 +433,7 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 	public int getOperationTime() {
 		return operationTime;
 	}
+	
+	public boolean willRecipeCauseExplosion() { return recipeWillCauseExplosion; }
 	
 }

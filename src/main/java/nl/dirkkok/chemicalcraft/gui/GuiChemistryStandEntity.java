@@ -16,8 +16,10 @@ public class GuiChemistryStandEntity extends GuiContainer {
 	final ChemistryStandEntity te;
 	private final IInventory playerInv;
 	private GuiButton modeButton;
-	int i;
-	int j;
+	int i; // X coord of the topleft of the GUI
+	int j; // Y coord of the topleft of the GUI
+	private boolean flag1 = true;
+	private boolean flag2 = true;
 	
 	public GuiChemistryStandEntity(IInventory playerInv, ChemistryStandEntity te) {
 		super(new ContainerChemistryStandEntity(playerInv, te));
@@ -54,6 +56,7 @@ public class GuiChemistryStandEntity extends GuiContainer {
 	 * Textures:
 	 * fuel: (176, 0) to (189, 13)
 	 * progress: (176, 14) to (199, 30)
+	 * explosive reaction: (200, 14) to (223, 30)
 	 * button (inactive): (176, 31) to (195, 50)
 	 * button (active): (176, 51) to (195, 70)
 	 * heat: (176, 71) to (195, 90)
@@ -74,7 +77,21 @@ public class GuiChemistryStandEntity extends GuiContainer {
 			this.drawTexturedModalRect(i + 80, j + 65 - scale, 176, 12 - scale, 13, scale + 1);
 		}
 		
+		if (te.willRecipeCauseExplosion()) {
+			if (flag1) {
+				log.error(i);
+				log.error(j);
+				flag1 = false;
+			}
+			this.drawTexturedModalRect(i + 76, j + 29, 200, 14, 24, 16);
+		}
+		
 		if (te.getOperationTime() > 0) {
+			if (flag2) {
+				log.error(i);
+				log.error(j);
+				flag2 = false;
+			}
 			int scale = (int) Math.ceil(((double) this.te.getOperationTime() / 200.0) * 24.0);
 			this.drawTexturedModalRect(i + 76, j + 29, 176, 14, scale + 1, 16);
 		}
