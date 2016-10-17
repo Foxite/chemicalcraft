@@ -13,8 +13,4 @@ class BasicBlock extends Block {
 		this.setResistance(resistance);
 		this.setRegistryName(name);
 	}
-
-	BasicBlock(String unlocalizedName) {
-		this(unlocalizedName, Material.IRON, 2.0f, 10.0f);
-	}
 }

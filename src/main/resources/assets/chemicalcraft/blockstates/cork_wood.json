@@ -1,0 +1,9 @@
+{
+	"variants": {
+		"axis=y":  { "model": "chemicalcraft:cork_wood" },
+		"axis=z":   { "model": "chemicalcraft:cork_wood", "x": 90 },
+		"axis=x":   { "model": "chemicalcraft:cork_wood", "x": 90, "y": 90 },
+		"axis=none":   { "model": "chemicalcraft:cork_wood" },
+		"normal": { "model": "chemicalcraft:cork_wood" }
+	}
+}
