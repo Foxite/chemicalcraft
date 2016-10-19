@@ -10,12 +10,19 @@ import nl.dirkkok.chemicalcraft.items.ModItems;
 public final class ItemRenderRegister {
 	public static void registerItemRenderer() {
 		reg(ModItems.residueTray);
+		reg(ModItems.tableSalt);
+		reg(ModItems.saltpeterDust);
+		reg(ModItems.rawCork);
+		reg(ModItems.corkBar);
+		reg(ModItems.corkStopper);
 		reg(ModItems.testTube, 0, "test_tube");
 		reg(ModItems.testTube, 1, "test_tube_water");
 		reg(ModItems.testTube, 2, "test_tube_purewater");
 		reg(ModItems.testTube, 3, "test_tube_nacl");
-		reg(ModItems.tableSalt);
-		reg(ModItems.saltpeterDust);
+		reg(ModItems.testTube, (1 << 30), "test_tube_stopped");
+		reg(ModItems.testTube, 1 + (1 << 30), "test_tube_water_stopped");
+		reg(ModItems.testTube, 2 + (1 << 30), "test_tube_purewater_stopped");
+		reg(ModItems.testTube, 3 + (1 << 30), "test_tube_nacl_stopped");
 	}
 	
 	private static void reg(Item item) {

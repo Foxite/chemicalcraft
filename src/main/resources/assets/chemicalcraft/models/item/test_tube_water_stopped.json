@@ -1,0 +1,7 @@
+{
+	"parent": "item/generated",
+	"textures": {
+		"layer0": "chemicalcraft:item/test_tube_water",
+		"layer1": "chemicalcraft:item/test_tube_stopper"
+	}
+}
