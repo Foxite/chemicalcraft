@@ -14,6 +14,7 @@ public final class BlockRenderRegister {
 		reg(ModBlocks.chemStand);
 		reg(ModBlocks.saltpeterOre);
 		reg(ModBlocks.corkWood);
+		reg(ModBlocks.corkSapling);
 	}
 
 	private static void reg(Block block) {
