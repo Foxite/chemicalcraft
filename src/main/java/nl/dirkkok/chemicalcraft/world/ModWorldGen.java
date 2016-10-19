@@ -3,6 +3,7 @@ package nl.dirkkok.chemicalcraft.world;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.IChunkGenerator;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenMinable;
@@ -27,7 +28,23 @@ public class ModWorldGen implements IWorldGenerator {
 			chunkProvider) {
 		if (world.provider.getDimension() == 0) { // Overworld
 			this.runGenerator(this.genSaltpeterOre, world, r, chunkX, chunkZ, 10, 0, 64);
-			this.runGenerator(this.genCorkTrees, world, r, chunkX, chunkZ, 10, 0, 64);
+			
+			// Cork trees
+			switch (Biome.getIdForBiome(world.getBiomeForCoordsBody(new BlockPos(chunkX, 64, chunkZ)))) {
+				case 4: // Forest
+				case 18: // Forest Hills
+				case 132: // Forest M, Flower Forest
+					this.runGenerator(this.genCorkTrees, world, r, chunkX, chunkZ, 10, 0, 64); // 10% chance
+					break;
+				case 21: // Jungle
+				case 22: // Jungle Hills
+				case 23: // Jungle Edge
+				case 149: // Jungle M
+				case 151: // Jungle Edge M
+					this.runGenerator(this.genCorkTrees, world, r, chunkX, chunkZ, 20, 0, 64); // 20% chance
+					break;
+				default: break;
+			}
 		} else if (world.provider.getDimension() == -1) { // Nether
 			
 		} else if (world.provider.getDimension() == 1) { // End
