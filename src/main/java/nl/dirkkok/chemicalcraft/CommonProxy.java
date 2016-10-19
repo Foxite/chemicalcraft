@@ -8,6 +8,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import nl.dirkkok.chemicalcraft.blocks.ModBlocks;
 import nl.dirkkok.chemicalcraft.gui.ModGuiHandler;
@@ -25,11 +26,17 @@ public class CommonProxy {
 	public void init(FMLInitializationEvent e) {
 		NetworkRegistry.INSTANCE.registerGuiHandler(ChemicalCraft.instance, new ModGuiHandler());
 		
-		// Recipes
+		// Crafting recipes
 		GameRegistry.addRecipe(new ItemStack(ModItems.testTube, 3, 0), "# #", "# #", " # ", '#', Blocks.GLASS_PANE);
 		GameRegistry.addRecipe(new ItemStack(ModBlocks.chemStandItem), "#U#", "###", '#', Items.IRON_INGOT,
 				'U', ModItems.testTube);
 		GameRegistry.addRecipe(new ItemStack(ModItems.residueTray, 3), "# #", "###", '#', Blocks.GLASS_PANE);
+		GameRegistry.addRecipe(new ItemStack(ModItems.testTube, 1, (1 << 30)), "s", "U", 's',
+				ModItems.corkStopper, 'U', new ItemStack(ModItems.testTube, 1, 0));
+		
+		
+		// Smelting recipes
+		GameRegistry.addSmelting(ModItems.rawCork, new ItemStack(ModItems.rawCork), 0);
 		
 		// OreDictionary recipes
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModItems.testTube, 1, 3), new ItemStack(ModItems.testTube, 1, 0),
