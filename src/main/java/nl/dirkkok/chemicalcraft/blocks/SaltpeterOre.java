@@ -20,14 +20,17 @@ class SaltpeterOre extends BasicBlock {
 		return r.nextInt(2 * (fortune + 1));
 	}
 	
+	@Override
 	public Item getItemDropped(IBlockState state, Random r, int fortune) {
 		return ModItems.saltpeterDust;
 	}
 	
+	@Override
 	public int quantityDropped(Random r) {
 		return r.nextInt(3) + 3; // Random int between 3 and 5
 	}
 	
+	@Override
 	public int quantityDroppedWithBonus(int fortune, Random r) {
 		if (fortune > 0) return r.nextInt(3) * fortune + 3;
 		else return quantityDropped(r);
