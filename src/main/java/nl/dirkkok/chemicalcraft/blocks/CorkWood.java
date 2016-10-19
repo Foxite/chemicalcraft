@@ -3,7 +3,14 @@ package nl.dirkkok.chemicalcraft.blocks;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import nl.dirkkok.chemicalcraft.items.ModItems;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class CorkWood extends BlockLog {
 	public CorkWood() {
@@ -48,5 +55,16 @@ public class CorkWood extends BlockLog {
 	@Override
 	protected BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, LOG_AXIS);
+	}
+	
+	@Override
+	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+		Random r = new Random();
+		List<ItemStack> output = new ArrayList<ItemStack>();
+		
+		output.add(new ItemStack(ModItems.rawCork, r.nextInt(2) * (fortune + 1) + 1));
+		output.add(new ItemStack(ModBlocks.corkWood));
+		
+		return output;
 	}
 }

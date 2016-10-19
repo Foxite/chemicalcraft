@@ -11,11 +11,13 @@ public final class ModBlocks {
 	public static Block chemStand;
 	public static Block saltpeterOre;
 	public static Block corkWood;
+	public static Block corkSapling;
 
 	// Item blocks
 	public static ItemBlock chemStandItem;
 	public static ItemBlock saltpeterOreItem;
 	public static ItemBlock corkWoodItem;
+	public static ItemBlock corkSaplingItem;
 	
 	public static void createBlocks() {
 		GameRegistry.register(chemStand = new ChemistryStand());
@@ -26,6 +28,10 @@ public final class ModBlocks {
 		
 		GameRegistry.register(corkWood = new CorkWood());
 		GameRegistry.register(corkWoodItem = (ItemBlock) new ItemBlock(corkWood).setRegistryName("cork_wood"));
+		
+		GameRegistry.register(corkSapling = new CorkSapling());
+		GameRegistry.register(corkSaplingItem = (ItemBlock) new ItemBlock(corkSapling).setRegistryName("cork_sapling"));
+		
 		
 		// OreDictionary
 		OreDictionary.registerOre("oreSaltpeter", saltpeterOre);
