@@ -1,0 +1,6 @@
+{
+	"variants": {
+		"normal": { "model": "chemicalcraft:cork_leaf" },
+		"inventory": { "model": "chemicalcraft:cork_leaf" }
+	}
+}
