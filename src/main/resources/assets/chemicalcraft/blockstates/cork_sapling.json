@@ -1,6 +1,5 @@
 {
 	"variants": {
-		"normal": { "model": "chemicalcraft:cork_sapling" },
-		"inventory": { "model": "chemicalcraft:cork_sapling" }
+		"normal": { "model": "chemicalcraft:cork_sapling" }
 	}
 }
