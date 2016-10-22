@@ -1,6 +1,6 @@
 {
 	"parent": "item/generated",
 	"textures": {
-		"layer0": "chemicalcraft:item/saltpeter_dust"
+		"layer0": "chemicalcraft:items/saltpeter_dust"
 	}
 }

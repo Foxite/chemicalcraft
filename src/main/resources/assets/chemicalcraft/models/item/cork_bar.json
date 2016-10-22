@@ -1,6 +1,6 @@
 {
 	"parent": "item/generated",
 	"textures": {
-		"layer0": "chemicalcraft:item/cork_bar"
+		"layer0": "chemicalcraft:items/cork_bar"
 	}
 }

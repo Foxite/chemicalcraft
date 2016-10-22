@@ -1,6 +1,6 @@
 {
 	"parent": "item/generated",
 	"textures": {
-		"layer0": "chemicalcraft:item/test_tube_water"
+		"layer0": "chemicalcraft:items/test_tube_water"
 	}
 }

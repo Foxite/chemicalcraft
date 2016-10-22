@@ -1,6 +1,6 @@
 {
 	"parent": "item/generated",
 	"textures": {
-		"layer0": "chemicalcraft:item/cork_stopper"
+		"layer0": "chemicalcraft:items/cork_stopper"
 	}
 }
