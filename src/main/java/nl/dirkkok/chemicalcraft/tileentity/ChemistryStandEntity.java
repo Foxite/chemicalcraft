@@ -13,6 +13,8 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import nl.dirkkok.chemicalcraft.ChemicalCraft;
+import nl.dirkkok.chemicalcraft.blocks.ChemistryStand;
 import nl.dirkkok.chemicalcraft.items.ModItems;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,8 +22,6 @@ import org.apache.logging.log4j.Logger;
 import javax.annotation.Nullable;
 
 public class ChemistryStandEntity extends TileEntity implements ITickable, IInventory {
-	private static final Logger log = LogManager.getLogger();
-	private boolean recipeWillCauseExplosion;
 	
 	private enum Mode {
 		HEAT(0), REACT(1), FILTER(2);
@@ -42,6 +42,7 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 	private int operationTime; // In ticks
 	private int fuelTime; // In ticks; value does not matter if unused and will only be reset when mode changes to HEAT
 	private int maxFuelTime; // Used to determine % of fuel left; remains active even if mode is not HEAT
+	private boolean recipeWillCauseExplosion;
 	
 	
 	public ChemistryStandEntity() {
@@ -100,7 +101,7 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 			case 2: mode = Mode.FILTER;
 					break;
 			default: mode = Mode.REACT;
-					 log.error("Invalid chemistry stand mode!" +
+					 ChemicalCraft.LOG.error("Invalid chemistry stand mode!" +
 							   "(mode = " + nbt.getInteger("mode") + ") falling back to react.");
 		}
 		
@@ -361,28 +362,23 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 	
 	@Override
 	public boolean isItemValidForSlot(int index, ItemStack stack) {
-		log.error("isItemValidForSlot()");
 		// Only allow test tubes (with any contents) in slots 0 and 1
 		if (index == 0 || index == 1 || index == 2 || index == 4) {
 			if (stack.getItem().getUnlocalizedName().equals("test_tube")) {
-				log.error("true");
 				return true;
 			}
 			// Only allow residue trays in slot 4
 		} else if (index == 3) {
 			if (stack.getItem().getUnlocalizedName().equals("residue_tray")) {
-				log.error("true");
 				return true;
 			}
 			// Only allow fuel items in slot 5
 		} else if (index == 6) {
 			if (GameRegistry.getFuelValue(stack) > 0) {
-				log.error("true");
 				return true;
 			}
 		}
 		// Do not allow insertion into slots 2 and 3
-		log.error("false");
 		return false;
 	}
 	
@@ -404,10 +400,8 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 					break;
 			case 2: this.mode = Mode.FILTER;
 					break;
-			default: throw new RuntimeException("Invalid chemistry stand mode! (mode=" + mode + ")");
+			default: throw new IllegalArgumentException("Invalid chemistry stand mode! (mode=" + mode + ")");
 		}
-		
-		log.error("Mode is now " + mode);
 	}
 	
 	public int getFuelTime() {
