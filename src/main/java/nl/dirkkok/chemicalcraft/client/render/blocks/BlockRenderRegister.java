@@ -25,7 +25,6 @@ public final class BlockRenderRegister {
 		reg(ModBlocks.saltpeterOre);
 		reg(ModBlocks.corkWood);
 		reg(ModBlocks.corkSapling);
-		((CorkLeaf) ModBlocks.corkLeaf).setGraphicsLevel(Minecraft.getMinecraft().gameSettings.fancyGraphics);
 		reg(ModBlocks.corkLeaf);
 	}
 
@@ -36,6 +35,7 @@ public final class BlockRenderRegister {
 	}
 	
 	public static void preInit() {
+		((CorkLeaf) ModBlocks.corkLeaf).setGraphicsLevel(Minecraft.getMinecraft().gameSettings.fancyGraphics);
 		ModelLoader.setCustomStateMapper(ModBlocks.corkLeaf, (new StateMap.Builder())
 				.ignore(new IProperty[] {CorkLeaf.CHECK_DECAY, CorkLeaf.DECAYABLE}).build());
 	}
