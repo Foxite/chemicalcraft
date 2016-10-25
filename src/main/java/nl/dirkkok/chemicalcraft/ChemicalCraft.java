@@ -11,11 +11,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @Mod(modid = ChemicalCraft.MODID, name = ChemicalCraft.MODNAME, version = ChemicalCraft.VERSION)
+@SuppressWarnings("unused")
 public class ChemicalCraft {
 	public static final String MODID = "chemicalcraft";
 	public static final String MODNAME = "ChemicalCraft";
 	public static final String VERSION = "0.1";
-	private final Logger log = LogManager.getLogger();
+	public static final Logger LOG = LogManager.getLogger();
 
 	@SidedProxy(clientSide = "nl.dirkkok.chemicalcraft.ClientProxy",
 				serverSide = "nl.dirkkok.chemicalcraft.ServerProxy")
@@ -25,13 +26,17 @@ public class ChemicalCraft {
 	public static ChemicalCraft instance = new ChemicalCraft();
 
 	@EventHandler
-	public void preInit(FMLPreInitializationEvent e) { this.proxy.preInit(e); }
+	public void preInit(FMLPreInitializationEvent e) {
+		proxy.preInit(e);
+		LOG.info("This is " + MODNAME + " version " + VERSION);
+	}
 
 	@EventHandler
-	public void init(FMLInitializationEvent e) { this.proxy.init(e); }
+	public void init(FMLInitializationEvent e) { proxy.init(e); }
 
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent e) {
-		this.proxy.postInit(e);
+		proxy.postInit(e);
+		LOG.info(MODNAME + " initialization successful");
 	}
 }

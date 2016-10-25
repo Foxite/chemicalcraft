@@ -12,7 +12,6 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 
 public class GuiChemistryStandEntity extends GuiContainer {
-	private static final Logger log = LogManager.getLogger();
 	final ChemistryStandEntity te;
 	private final IInventory playerInv;
 	private GuiButton modeButton;
@@ -79,8 +78,6 @@ public class GuiChemistryStandEntity extends GuiContainer {
 		
 		if (te.willRecipeCauseExplosion()) {
 			if (flag1) {
-				log.error(i);
-				log.error(j);
 				flag1 = false;
 			}
 			this.drawTexturedModalRect(i + 76, j + 29, 200, 14, 24, 16);
@@ -88,8 +85,6 @@ public class GuiChemistryStandEntity extends GuiContainer {
 		
 		if (te.getOperationTime() > 0) {
 			if (flag2) {
-				log.error(i);
-				log.error(j);
 				flag2 = false;
 			}
 			int scale = (int) Math.ceil(((double) this.te.getOperationTime() / 200.0) * 24.0);

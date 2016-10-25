@@ -14,10 +14,7 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import nl.dirkkok.chemicalcraft.ChemicalCraft;
-import nl.dirkkok.chemicalcraft.blocks.ChemistryStand;
 import nl.dirkkok.chemicalcraft.items.ModItems;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nullable;
 
