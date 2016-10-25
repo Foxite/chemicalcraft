@@ -1,6 +1,6 @@
 {
-	"parent": "block/leaves",
+	"parent": "block/cube_all",
 	"textures": {
-		"all": "chemicalcraft:blocks/cork_wood_side"
+		"all": "chemicalcraft:blocks/cork_leaf"
 	}
 }
