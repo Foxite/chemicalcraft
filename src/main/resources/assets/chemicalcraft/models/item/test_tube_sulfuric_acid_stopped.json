@@ -1,0 +1,7 @@
+{
+	"parent": "item/generated",
+	"textures": {
+		"layer0": "chemicalcraft:items/test_tube_sulfuric_acid",
+		"layer1": "chemicalcraft:items/test_tube_stopper"
+	}
+}
