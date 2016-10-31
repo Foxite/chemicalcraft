@@ -40,6 +40,7 @@ import java.util.List;
  * 20: Elemental hydrogen (stopped only)
  * 21: Elemental nitrogen (stopped only)
  * 22: Elemental oxygen (stopped only)
+ * 23: Benzene
  *
  * For stopped tubes, the first bit is 1. For unstopped tubes, the first bit is 0. Tubes with gas content do not have
  * unstopped contents registered.
@@ -84,6 +85,7 @@ class TestTube extends BasicItem {
 		subItems.add(new ItemStack(itemIn, 1, 16)); // Salty water (l)
 		subItems.add(new ItemStack(itemIn, 1, 17)); // Mixture of ammonia and salty water (l)
 		subItems.add(new ItemStack(itemIn, 1, 19)); // Mixture of ammonia, salty water and CO2 (l)
+		subItems.add(new ItemStack(itemIn, 1, 23)); // Benzene (l)
 		
 		// Stopped tubes
 		subItems.add(new ItemStack(itemIn, 1, setBit(0, 30, true))); // Empty (l)
@@ -109,6 +111,7 @@ class TestTube extends BasicItem {
 		subItems.add(new ItemStack(itemIn, 1, setBit(20, 30, true))); // Elemental hydrogen (g)
 		subItems.add(new ItemStack(itemIn, 1, setBit(22, 30, true))); // Elemental nitrogen (g)
 		subItems.add(new ItemStack(itemIn, 1, setBit(22, 30, true))); // Elemental oxygen (g)
+		subItems.add(new ItemStack(itemIn, 1, setBit(23, 30, true))); // Benzene (l)
 	}
 	
 	@Override
@@ -138,6 +141,7 @@ class TestTube extends BasicItem {
 			case 20: type = "Elemental hydrogen"; break;
 			case 21: type = "Elemental nitrogen"; break;
 			case 22: type = "Elemental oxygen"; break;
+			case 23: type = "Benzene"; break;
 			default: type = "Empty"; break;
 		}
 		if (getBit(stack.getItemDamage(), 30) == 1) type = type + " (stopped)";
@@ -146,6 +150,8 @@ class TestTube extends BasicItem {
 		// Warnings
 		String warn;
 		switch (setBit(stack.getItemDamage(), 30, false)) {
+			// I didn't bother with "highly toxic" because literally everything in this list except for the oxygen is
+			// "highly toxic".
 			case 4: warn = "Highly corrosive"; break; // Nitric acid
 			case 5: warn = "Highly corrosive"; break; // Sulfuric acid
 			case 6: warn = "Highly corrosive"; break; // Nitric + sulfuric acid
@@ -154,6 +160,7 @@ class TestTube extends BasicItem {
 			case 15: warn = "Alkaline"; break; // Ammonia
 			case 20: warn = "Extremely flammable"; break; // Elemental hydrogen
 			case 22: warn = "Purified oxidizer"; break; // Elemental oxygen
+			case 23: warn = "Highly flammable"; break; // Benzene
 			default: warn = ""; break;
 		}
 		if (!warn.equals("")) tooltip.add(warn);

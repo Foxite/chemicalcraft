@@ -36,10 +36,11 @@ public class TestTubeColor implements IItemColor{
 				case 20: return 0xFFFFFF; // Elemental hydrogen
 				case 21: return 0xFFFFFF; // Elemental nitrogen
 				case 22: return 0xFFFFFF; // Elemental oxygen
+				case 23: return 0xD4AF37; // Benzene
 				default: return 0xFFFFFF;
 			}
 		} else {
-			return 0xFFFFFF; // White
+			return 0xFFFFFF;
 		}
 	}
 }
