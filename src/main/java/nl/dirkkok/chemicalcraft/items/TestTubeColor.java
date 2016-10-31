@@ -4,7 +4,7 @@ import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.item.ItemStack;
 
 public class TestTubeColor implements IItemColor{
-	/* Technically ammonia, acids, etc colorless but a crapton of chemicals are colorless and we can't use the alpha
+	/* Technically ammonia, acids, etc are colorless but a crapton of chemicals are colorless and we can't use the alpha
 	 * channel. I don't want a billion white chemicals that are indistinguishable in the game. IRL, sure, but not
 	 * here. That's why I intentionally used colors of chemicals that were dyed, or contained in a colored bottle,
 	 * for visual recognition.
