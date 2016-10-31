@@ -29,7 +29,6 @@ public class ChemistryStand extends BasicBlock implements ITileEntityProvider {
 	@Override @SuppressWarnings("Deprecated")
 	public boolean isOpaqueCube(IBlockState s) { return false; }
 	
-	
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
 		return new ChemistryStandEntity();
