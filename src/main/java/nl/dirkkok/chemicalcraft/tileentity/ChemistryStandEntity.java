@@ -13,7 +13,6 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import nl.dirkkok.chemicalcraft.ChemicalCraft;
 import nl.dirkkok.chemicalcraft.items.ModItems;
@@ -21,7 +20,6 @@ import nl.dirkkok.chemicalcraft.items.ModItems;
 import javax.annotation.Nullable;
 
 public class ChemistryStandEntity extends TileEntity implements ITickable, IInventory {
-	
 	private enum Mode {
 		HEAT(0), REACT(1), FILTER(2);
 		
@@ -175,14 +173,14 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 		if (mode == Mode.FILTER) {
 			if (inventory[1] != null) return false;
 			
-			
 			// Crossmod recipes
 			if (ChemicalCraft.supportedModsLoaded.contains("railcraft")) {
-				// mods.railcraft.common.fluids.Fluids.CREOSOTE
-				// CREOSOTE.getTag() == "creosote"
+				// (Railcraft) Creosote Oil -> Toluene (TODO residue)
 				if (inventory[0].getItem() == Items.BUCKET && (FluidRegistry.getFluidStack("creosote", 1000))
 						.isFluidEqual(inventory[0])) {
-					
+					if (getTubeMetadata(2) == 7 || inventory[2] == null) {
+						return true;
+					}
 				}
 			}
 		}
@@ -191,7 +189,6 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 	}
 	
 	/* This removes the input items and adds to the output slots.
-	 * NOTE TO SELF: World.createExplosion()
 	 */
 	private void doOperation() {
 		// We don't have to check canDoOperation(), because all calls to this method will have done that beforehand.
@@ -205,13 +202,13 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 				decrStackSize(0, 1);
 				
 				if (inventory[2] == null) {
-					inventory[2] = new ItemStack(ModItems.testTube, 1, 2);
-				} else if (getTubeMetadata(2) == 2) {
+					setInventorySlotContents(3, new ItemStack(ModItems.testTube, 1, 2));
+				} else {
 					decrStackSize(2, -1); // Increase stack size by 1. I have checked everything, it will work.
 				}
 				if (inventory[3] == null) {
-					inventory[3] = new ItemStack(ModItems.testTube, 1, 3);
-				} else if (inventory[3].getItem() == ModItems.tableSalt) {
+					setInventorySlotContents(3, new ItemStack(ModItems.testTube, 1, 3));
+				} else {
 					decrStackSize(3, -1);
 				}
 				
@@ -231,7 +228,21 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 		
 		// FILTER recipes
 		if (mode == Mode.FILTER) {
-			
+			// Crossmod recipes
+			if (ChemicalCraft.supportedModsLoaded.contains("railcraft")) {
+				// (Railcraft) Creosote Oil -> Toluene (TODO residue)
+				if (inventory[0].getItem() == Items.BUCKET && (FluidRegistry.getFluidStack("creosote", 1000))
+						.isFluidEqual(inventory[0])) {
+					// Remove items from input
+					decrStackSize(0, 1);
+					
+					if (inventory[2] == null) {
+						inventory[2] = new ItemStack(ModItems.testTube, 1, 7);
+					} else if (getTubeMetadata(2) == 7) {
+						decrStackSize(2, -1); // Increase stack size by 1. I have checked everything, it will work.
+					}
+				}
+			}
 		}
 	}
 	
@@ -239,10 +250,6 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 	 * If it's not a test tube, this returns -1.
 	 */
 	private int getTubeMetadata(int slot) {
-		/*
-		if (inventory[slot] == null) {
-			return 0;
-		}*/
 		if (inventory[slot].getItem() == ModItems.testTube) {
 			return inventory[slot].getItemDamage();
 		}
@@ -270,7 +277,6 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 		
 		if (stack != null) {
 			if (stack.stackSize <= count) {
-				//stack = this.getStackInSlot(index);
 				this.setInventorySlotContents(index, null);
 				this.markDirty();
 				return stack;
@@ -280,7 +286,6 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 				if (stack.stackSize <= 0) {
 					this.setInventorySlotContents(index, null);
 				} else {
-					//Just to show that changes happened
 					this.setInventorySlotContents(index, this.getStackInSlot(index));
 				}
 				
