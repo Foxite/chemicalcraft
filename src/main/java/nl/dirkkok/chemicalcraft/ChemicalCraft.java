@@ -1,5 +1,6 @@
 package nl.dirkkok.chemicalcraft;
 
+import net.minecraftforge.event.world.ChunkDataEvent;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.LoaderState;
 import net.minecraftforge.fml.common.Mod;
@@ -39,7 +40,14 @@ public class ChemicalCraft {
 	public void preInit(FMLPreInitializationEvent e) {
 		LOG = e.getModLog();
 		
+		if (Loader.isModLoaded("railcraft")) {
+			supportedModsLoaded.add("railcraft");
+		}
+		if (Loader.isModLoaded("IC2")) {
+			supportedModsLoaded.add("ic2");
+		}
 		proxy.preInit(e);
+		
 		LOG.info("This is " + MODNAME + " version " + VERSION);
 		if (e.getModState() == LoaderState.ModState.ERRORED) {
 			LOG.error(MODNAME + " preinitialization FAILED");
@@ -51,6 +59,7 @@ public class ChemicalCraft {
 	@EventHandler
 	public void init(FMLInitializationEvent e) {
 		proxy.init(e);
+		
 		if (e.getModState() == LoaderState.ModState.ERRORED && !errorHasBeenLogged) {
 			LOG.error(MODNAME + " initialization FAILED");
 			errorHasBeenLogged = true;
@@ -59,11 +68,8 @@ public class ChemicalCraft {
 
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent e) {
-		if (Loader.isModLoaded("railcraft")) {
-			supportedModsLoaded.add("railcraft");
-		}
-		
 		proxy.postInit(e);
+		
 		if (e.getModState() == LoaderState.ModState.ERRORED && !errorHasBeenLogged) {
 			LOG.error(MODNAME + " postinitialization FAILED");
 		} else {
