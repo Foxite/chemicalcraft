@@ -60,12 +60,4 @@ public class ChemistryStand extends BasicBlock implements ITileEntityProvider {
 		}
 		return true;
 	}
-	
-	/* I was instructed to add this method but it gives me errors, and it seems to work without it.
-	@Override
-	public boolean onBlockEventReceived(World worldIn, BlockPos pos, IBlockState state, int eventID, int eventParam) {
-		super.onBlockEventReceived(worldIn, pos, state, eventID, eventParam);
-		TileEntity tileentity = worldIn.getTileEntity(pos);
-		return tileentity == null ? false : tileentity.receiveClientEvent(eventID, eventParam);
-	}*/
 }
