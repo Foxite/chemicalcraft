@@ -31,19 +31,27 @@ public final class ItemRenderRegister {
 		regTestTubeType(12); // Raw TNT
 		regTestTubeType(13); // Copper(II) nitrate
 		regTestTubeType(14); // Sodium nitrate
-		regTestTubeType(15); // Ammonia (stopped only)
+		regTestTubeType(15, true); // Ammonia (stopped only)
 		regTestTubeType(16); // Salty water
 		regTestTubeType(17); // Mixture of ammonia and salty water
-		regTestTubeType(18); // CO2 (stopped only)
+		regTestTubeType(18, true); // CO2 (stopped only)
 		regTestTubeType(19); // Mixture of ammonia, salty water and CO2
-		regTestTubeType(20); // Elemental hydrogen (stopped only)
-		regTestTubeType(21); // Elemental nitrogen (stopped only)
-		regTestTubeType(22); // Elemental oxygen (stopped only)
+		regTestTubeType(20, true); // Elemental hydrogen (stopped only)
+		regTestTubeType(21, true); // Elemental nitrogen (stopped only)
+		regTestTubeType(22, true); // Elemental oxygen (stopped only)
+		regTestTubeType(23); // Benzene
 		Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new TestTubeColor(), ModItems.testTube);
 	}
 	
 	private static void regTestTubeType(int type) {
-		reg(ModItems.testTube, type, "test_tube");
+		regTestTubeType(type, false);
+	}
+	
+	
+	private static void regTestTubeType(int type, boolean gas) {
+		if (!gas) {
+			reg(ModItems.testTube, type, "test_tube");
+		}
 		reg(ModItems.testTube, type + (1 << 30), "test_tube_stopped");
 	}
 	
