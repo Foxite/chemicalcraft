@@ -14,6 +14,10 @@ import org.apache.logging.log4j.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
+/* To keep things simple and fun, this mod incorporates a lot of scientific inaccuracies. I could make everything
+ * correct, but it would make take away all of the fun and unnecessarily complicated for a game. Try to find them all,
+ * and I'll give you a sticker.
+ */
 @Mod(modid = ChemicalCraft.MODID, name = ChemicalCraft.MODNAME, version = ChemicalCraft.VERSION)
 @SuppressWarnings("unused")
 public class ChemicalCraft {

@@ -12,6 +12,8 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.UniversalBucket;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import nl.dirkkok.chemicalcraft.ChemicalCraft;
 import nl.dirkkok.chemicalcraft.items.ModItems;
@@ -173,6 +175,16 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 		if (mode == Mode.FILTER) {
 			if (inventory[1] != null) return false;
 			
+			
+			// Crossmod recipes
+			if (ChemicalCraft.supportedModsLoaded.contains("railcraft")) {
+				// mods.railcraft.common.fluids.Fluids.CREOSOTE
+				// CREOSOTE.getTag() == "creosote"
+				if (inventory[0].getItem() == Items.BUCKET && (FluidRegistry.getFluidStack("creosote", 1000))
+						.isFluidEqual(inventory[0])) {
+					
+				}
+			}
 		}
 		
 		return false;
