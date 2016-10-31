@@ -2,6 +2,7 @@
 	"parent": "item/generated",
 	"textures": {
 		"layer0": "chemicalcraft:items/test_tube",
-		"layer1": "chemicalcraft:items/test_tube_stopper"
+		"layer1": "chemicalcraft:items/test_tube_base",
+		"layer2": "chemicalcraft:items/test_tube_stopper"
 	}
 }

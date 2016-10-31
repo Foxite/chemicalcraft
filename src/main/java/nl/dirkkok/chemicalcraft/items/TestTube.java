@@ -13,9 +13,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import nl.dirkkok.chemicalcraft.ChemicalCraft;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.jetbrains.annotations.Contract;
 
 import java.util.List;
 
@@ -53,41 +50,9 @@ class TestTube extends BasicItem {
 		this.setHasSubtypes(true);
 	}
 	
+	@Override
 	public String getUnlocalizedName(ItemStack stack) {
-		String type;
-		switch (setBit(stack.getItemDamage(), 30, false)) {
-			case 0: type = ""; break;
-			case 1: type = "_water"; break;
-			case 2: type = "_purewater"; break;
-			case 3: type = "_table_salt"; break;
-			case 4: type = "_nitric_acid"; break;
-			case 5: type = "_sulfuric_acid"; break;
-			case 6: type = "_nitric+sulfuric_acid"; break;
-			case 7: type = "_toluene"; break;
-			case 8: type = "_nitrotoluene"; break;
-			case 9: type = "_sodium_bicarbonate"; break;
-			case 10: type = "_cleaned_nitrotoluene"; break;
-			case 11: type = "_unfinished_tnt"; break;
-			case 12: type = "_raw_tnt"; break;
-			case 13: type = "_copper2_nitrate"; break;
-			case 14: type = "_sodium_nitrate"; break;
-			case 15: type = "_ammonia"; break;
-			case 16: type = "_salty_water"; break;
-			case 17: type = "_ammonia+salty_water"; break;
-			case 18: type = "_co2"; break;
-			case 19: type = "_ammonia+salty_water+co2"; break;
-			case 20: type = "_hydrogen"; break;
-			case 21: type = "_nitrogen"; break;
-			case 22: type = "_oxygen"; break;
-			default: type = "";
-					 ChemicalCraft.LOG.error("Unrecognized metadata " + setBit(stack.getItemDamage(), 30, false) + " " +
-							 "with " + (getBit(stack.getItemDamage(), 30) == 1 ? "" : "no") + " stopper");
-					 break;
-		}
-		
-		if (getBit(stack.getItemDamage(), 30) == 1) type = type + "_stopped";
-		
-		return "item.test_tube" + type;
+		return "item.test_tube";
 	}
 	
 	@Override
@@ -187,19 +152,17 @@ class TestTube extends BasicItem {
 			case 7: warn = "Highly flammable"; break; // Toluene
 			case 13: warn = "Explosive"; break; // Raw TNT
 			case 15: warn = "Alkaline"; break; // Ammonia
-			case 20: warn = "Extremely flammable and explosive"; break; // Elemental hydrogen
+			case 20: warn = "Extremely flammable"; break; // Elemental hydrogen
 			case 22: warn = "Purified oxidizer"; break; // Elemental oxygen
 			default: warn = ""; break;
 		}
-		tooltip.add(warn);
+		if (!warn.equals("")) tooltip.add(warn);
 	}
 	
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(ItemStack stack, World world, EntityPlayer player, EnumHand hand) {
 		RayTraceResult raytraceresult = this.rayTrace(world, player, true);
 		
-		// IDEA says that this statement is always false. That's bullshit, try removing this line and rightclicking into
-		// open space.
 		if (raytraceresult == null) return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);
 		
 		// Fill tube with water
