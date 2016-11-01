@@ -37,7 +37,8 @@ public class TestTubeColor implements IItemColor{
 				case 21: return 0xFFFFFF; // Elemental nitrogen
 				case 22: return 0xFFFFFF; // Elemental oxygen
 				case 23: return 0xD4AF37; // Benzene
-				default: return 0xFFFFFF;
+				case 24: return 0xF2F2F2; // Ammonium chloride
+				default: return 0x000000; // Error
 			}
 		} else {
 			return 0xFFFFFF;
