@@ -26,6 +26,7 @@ public final class BlockRenderRegister {
 		reg(ModBlocks.corkWood);
 		reg(ModBlocks.corkSapling);
 		reg(ModBlocks.corkLeaf);
+		reg(ModBlocks.elecStand);
 	}
 
 	private static void reg(Block block) {

@@ -8,12 +8,16 @@ import nl.dirkkok.chemicalcraft.tileentity.ChemistryStandEntity;
 
 public class ModGuiHandler implements IGuiHandler {
 	public static final int CHEMISTRY_STAND_ENTITY_GUI = 0;
+	public static final int ELECTROLYSIS_STAND_ENTITY_GUI = 1;
 	
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		if (ID == CHEMISTRY_STAND_ENTITY_GUI)
 			return new ContainerChemistryStandEntity(player.inventory,
 													(ChemistryStandEntity) world.getTileEntity(new BlockPos(x, y, z)));
+		else if (ID == ELECTROLYSIS_STAND_ENTITY_GUI)
+			return new ContainerChemistryStandEntity(player.inventory,
+					(ChemistryStandEntity) world.getTileEntity(new BlockPos(x, y, z)));
 		
 		return null;
 	}
@@ -23,6 +27,9 @@ public class ModGuiHandler implements IGuiHandler {
 		if (ID == CHEMISTRY_STAND_ENTITY_GUI)
 			return new GuiChemistryStandEntity(player.inventory,
 											  (ChemistryStandEntity) world.getTileEntity(new BlockPos(x, y, z)));
+		else if (ID == ELECTROLYSIS_STAND_ENTITY_GUI)
+			return new GuiChemistryStandEntity(player.inventory,
+					(ChemistryStandEntity) world.getTileEntity(new BlockPos(x, y, z)));
 		
 		return null;
 	}
