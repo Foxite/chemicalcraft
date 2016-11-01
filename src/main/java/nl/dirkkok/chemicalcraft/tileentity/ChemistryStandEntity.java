@@ -161,12 +161,47 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 				recipeWillCauseExplosion = true;
 				return true;
 			}
+			
+			// Unfinished NT
+			// It might seem counterintuitive to heat TNT to make it explosive, but wikipedia says it works.
+			if (getTubeMetaData(0) == 11) {
+				if (getTubeMetaData(2) == 12 && inventory[3] == null) {
+					return true;
+				}
+			}
 		}
 		
 		// REACT recipes
 		if (mode == Mode.REACT) {
 			if (inventory[1] == null) return false;
 			
+			// Nitric Acid + Sulfuric Acid mix
+			if (getTubeMetaData(0) == 4 && getTubeMetaData(1) == 5) {
+				if (getTubeMetaData(2) == 6 && inventory[3] == null) {
+					return true;
+				}
+			}
+			
+			// Nitric+sulfur acid + Toluene -> Nitrotoluene
+			if (getTubeMetaData(0) == 6 && getTubeMetaData(1) == 7) {
+				if (getTubeMetaData(2) == 8 && inventory[3] == null) {
+					return true;
+				}
+			}
+			
+			// Nitrotoluene + Sodium Bicarbonate -> Cleaned Nitrotoluene
+			if (getTubeMetaData(0) == 8 && getTubeMetaData(1) == 9) {
+				if (getTubeMetaData(2) == 10 && inventory[3] == null) {
+					return true;
+				}
+			}
+			
+			// Cleaned NT + Nitric+sulfur acid -> Unfinished TNT
+			if (getTubeMetaData(0) == 10 && getTubeMetaData(1) == 6) {
+				if (getTubeMetaData(2) == 11 && inventory[3] == null) {
+					return true;
+				}
+			}
 		}
 		
 		// FILTER recipes
