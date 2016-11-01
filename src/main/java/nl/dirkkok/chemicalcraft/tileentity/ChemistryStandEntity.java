@@ -258,7 +258,53 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 		
 		// REACT recipes
 		if (mode == Mode.REACT) {
+			// Nitric Acid + Sulfuric Acid mix
+			if (getTubeMetaData(0) == 4 && getTubeMetaData(1) == 5) {
+				decrStackSize(0, 1);
+				decrStackSize(1, 1);
+				
+				if (getTubeMetaData(2) == 6) {
+					decrStackSize(2, -1)
+				} else {
+					setInventorySlotContents(2, new ItemStack(ModItems.testTube, 1, 6));
+				}
+			}
 			
+			// Nitric+sulfur acid + Toluene -> Nitrotoluene
+			if (getTubeMetaData(0) == 6 && getTubeMetaData(1) == 7) {
+				decrStackSize(0, 1);
+				decrStackSize(1, 1);
+				
+				if (getTubeMetaData(2) == 8) {
+					decrStackSize(2, -1)
+				} else {
+					setInventorySlotContents(2, new ItemStack(ModItems.testTube, 1, 8));
+				}
+			}
+			
+			// Nitrotoluene + Sodium Bicarbonate -> Cleaned Nitrotoluene
+			if (getTubeMetaData(0) == 8 && getTubeMetaData(1) == 9) {
+				decrStackSize(0, 1);
+				decrStackSize(1, 1);
+				
+				if (getTubeMetaData(2) == 10) {
+					decrStackSize(2, -1)
+				} else {
+					setInventorySlotContents(2, new ItemStack(ModItems.testTube, 1, 10));
+				}
+			}
+			
+			// Cleaned NT + Nitric+sulfur acid -> Unfinished TNT
+			if (getTubeMetaData(0) == 10 && getTubeMetaData(1) == 6) {
+				decrStackSize(0, 1);
+				decrStackSize(1, 1);
+				
+				if (getTubeMetaData(2) == 11) {
+					decrStackSize(2, -1)
+				} else {
+					setInventorySlotContents(2, new ItemStack(ModItems.testTube, 1, 11));
+				}
+			}
 		}
 		
 		// FILTER recipes
