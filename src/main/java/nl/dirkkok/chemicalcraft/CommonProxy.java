@@ -34,11 +34,11 @@ public class CommonProxy {
 		GameRegistry.addRecipe(new ItemStack(ModItems.testTube, 1, (1 << 30)), "s", "U", 's',
 				ModItems.corkStopper, 'U', new ItemStack(ModItems.testTube, 1, 0));
 		GameRegistry.addShapelessRecipe(new ItemStack(Blocks.TNT, 3), new ItemStack(ModItems.testTube, 1, 12),
-						new ItemStack(Items.WOOL, 1, 14));
+						new ItemStack(Blocks.WOOL, 1, 14));
 		
 		
 		// Smelting recipes
-		GameRegistry.addSmelting(ModItems.rawCork, ModItems.corkBar);
+		GameRegistry.addSmelting(ModItems.rawCork, new ItemStack(ModItems.corkBar), 0);
 		
 		// OreDictionary recipes
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModItems.testTube, 1, 3), new ItemStack(ModItems.testTube, 1, 0),
