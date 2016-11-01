@@ -33,6 +33,8 @@ public class CommonProxy {
 		GameRegistry.addRecipe(new ItemStack(ModItems.residueTray, 3), "# #", "###", '#', Blocks.GLASS_PANE);
 		GameRegistry.addRecipe(new ItemStack(ModItems.testTube, 1, (1 << 30)), "s", "U", 's',
 				ModItems.corkStopper, 'U', new ItemStack(ModItems.testTube, 1, 0));
+		GameRegistry.addShapelessRecipe(new ItemStack(Blocks.TNT, 3), new ItemStack(ModItems.testTube, 1, 12),
+						new ItemStack(Items.WOOL, 1, 14));
 		
 		
 		// Smelting recipes
