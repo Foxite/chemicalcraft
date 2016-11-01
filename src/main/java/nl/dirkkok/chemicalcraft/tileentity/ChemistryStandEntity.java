@@ -177,28 +177,50 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 			
 			// Nitric Acid + Sulfuric Acid mix
 			if (getTubeMetaData(0) == 4 && getTubeMetaData(1) == 5) {
-				if (getTubeMetaData(2) == 6 && inventory[3] == null) {
+				if (getTubeMetaData(2) == 6 || inventory[2] == null) {
 					return true;
 				}
 			}
 			
 			// Nitric+sulfur acid + Toluene -> Nitrotoluene
 			if (getTubeMetaData(0) == 6 && getTubeMetaData(1) == 7) {
-				if (getTubeMetaData(2) == 8 && inventory[3] == null) {
+				if (getTubeMetaData(2) == 8 || inventory[2] == null) {
 					return true;
 				}
 			}
 			
 			// Nitrotoluene + Sodium Bicarbonate -> Cleaned Nitrotoluene
 			if (getTubeMetaData(0) == 8 && getTubeMetaData(1) == 9) {
-				if (getTubeMetaData(2) == 10 && inventory[3] == null) {
+				if (getTubeMetaData(2) == 10 || inventory[2] == null) {
 					return true;
 				}
 			}
 			
 			// Cleaned NT + Nitric+sulfur acid -> Unfinished TNT
 			if (getTubeMetaData(0) == 10 && getTubeMetaData(1) == 6) {
-				if (getTubeMetaData(2) == 11 && inventory[3] == null) {
+				if (getTubeMetaData(2) == 11 || inventory[2] == null) {
+					return true;
+				}
+			}
+			
+			// Pure water + Salt -> Salty water
+			if (getTubeMetaData(0) == 2 && getTubeMetaData(1) == 3) {
+				if (getTubeMetaData(2) == 16 || inventory[2] == null) {
+					return true;
+				}
+			}
+			
+			// Salty water + ammonia mix
+			if (getTubeMetaData(0) == 16 && getTubeMetaData(1) == 15) {
+				if (getTubeMetaData(2) == 17 || inventory[2] == null) {
+					return true;
+				}
+			}
+			
+			// Saltywater+ammonia + CO2 -> Sodium bicarbonate + ammonium chloride
+			if (getTubeMetaData(0) == 16 && getTubeMetaData(1) == 15) {
+				if ((getTubeMetaData(2) == 17 || inventory[2] == null)
+				 && (getTubeMetaData(3) == 24 || inventory[3] == null)) {
 					return true;
 				}
 			}
@@ -305,6 +327,41 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 					setInventorySlotContents(2, new ItemStack(ModItems.testTube, 1, 11));
 				}
 			}
+			// Pure water + Salt -> Salty water
+			if (getTubeMetaData(0) == 2 && getTubeMetaData(1) == 3) {
+				decrStackSize(0, 1);
+				decrStackSize(1, 1);
+				
+				if (getTubeMetaData(2) == 16) {
+					decrStackSize(2, -1)
+				} else {
+					setInventorySlotContents(2, new ItemStack(ModItems.testTube, 1, 16));
+				}
+			}
+			
+			// Salty water + ammonia mix
+			if (getTubeMetaData(0) == 16 && getTubeMetaData(1) == 15) {
+				decrStackSize(0, 1);
+				decrStackSize(1, 1);
+				
+				if (getTubeMetaData(2) == 17) {
+					decrStackSize(2, -1)
+				} else {
+					setInventorySlotContents(2, new ItemStack(ModItems.testTube, 1, 17));
+				}
+			}
+			
+			// Saltywater+ammonia + CO2 -> Sodium bicarbonate + ammonium chloride
+			if (getTubeMetaData(0) == 17 && getTubeMetaData(1) == 18) {
+				decrStackSize(0, 1);
+				decrStackSize(1, 1);
+				
+				if (getTubeMetaData(2) == 18) {
+					decrStackSize(2, -1)
+				} else {
+					setInventorySlotContents(2, new ItemStack(ModItems.testTube, 1, 17));
+				}
+			}
 		}
 		
 		// FILTER recipes
@@ -332,7 +389,7 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 	 */
 	private int getTubeMetadata(int slot) {
 		if (inventory[slot].getItem() == ModItems.testTube) {
-			return inventory[slot].getItemDamage();
+			return inventory[slot].getItemDamage() & ~(1 << 30);
 		}
 		return -1;
 	}
