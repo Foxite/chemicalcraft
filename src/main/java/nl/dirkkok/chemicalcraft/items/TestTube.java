@@ -12,7 +12,6 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
-import nl.dirkkok.chemicalcraft.ChemicalCraft;
 
 import java.util.List;
 
@@ -40,7 +39,7 @@ import java.util.List;
  * 20: Elemental hydrogen (stopped only)
  * 21: Elemental nitrogen (stopped only)
  * 22: Elemental oxygen (stopped only)
- * 23: Benzene\
+ * 23: Benzene
  * 24: Ammonium chloride
  *
  * For stopped tubes, the first bit is 1. For unstopped tubes, the first bit is 0. Tubes with gas content do not have
@@ -163,7 +162,7 @@ class TestTube extends BasicItem {
 			case 20: warn = "Extremely flammable"; break; // Elemental hydrogen
 			case 22: warn = "Purified oxidizer"; break; // Elemental oxygen
 			case 23: warn = "Highly flammable"; break; // Benzene
-			case 23: warn = "Toxic"; break; // Benzene
+			case 24: warn = "Toxic"; break; // Benzene
 			default: warn = ""; break;
 		}
 		if (!warn.equals("")) tooltip.add(warn);
