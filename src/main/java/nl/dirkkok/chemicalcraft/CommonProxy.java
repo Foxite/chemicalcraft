@@ -38,7 +38,7 @@ public class CommonProxy {
 		
 		
 		// Smelting recipes
-		GameRegistry.addSmelting(ModItems.rawCork, new ItemStack(ModItems.rawCork), 0);
+		GameRegistry.addSmelting(ModItems.rawCork, ModItems.corkBar);
 		
 		// OreDictionary recipes
 		GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(ModItems.testTube, 1, 3), new ItemStack(ModItems.testTube, 1, 0),
