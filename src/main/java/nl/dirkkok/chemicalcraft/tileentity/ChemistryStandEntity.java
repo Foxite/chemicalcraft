@@ -105,7 +105,6 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 		this.operationTime = nbt.getInteger("operationTime");
 		this.fuelTime = nbt.getInteger("fuelTime");
 		this.maxFuelTime = nbt.getInteger("maxFuelTime");
-		
 	}
 	
 	@Override
@@ -151,9 +150,23 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 			// Water -> H2O + NaCl (TODO residue)
 			if (getTubeMetadata(0) == 1) {
 				if ((inventory[2] == null || getTubeMetadata(2) == 2)
-						&& (inventory[3] == null || inventory[3].getItem() == ModItems.tableSalt)) {
+				 && (inventory[3] == null || inventory[3].getItem() == ModItems.tableSalt)) {
 					return true;
 				}
+			}
+			
+			// Unfinished TNT
+			// It might seem counterintuitive to heat TNT to make it explosive, but wikipedia says it works.
+			if (getTubeMetadata(0) == 11) {
+				if (inventory[3] == null || getTubeMetadata(2) == 12) {
+					return true;
+				}
+			}
+			
+			// Raw TNT -> Boom
+			if (inventory[0].getItem() == ModItems.testTube && inventory[0].getItemDamage() == 12) {
+				recipeWillCauseExplosion = true;
+				return true;
 			}
 			
 			// Gunpowder -> Boom
@@ -162,13 +175,6 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 				return true;
 			}
 			
-			// Unfinished NT
-			// It might seem counterintuitive to heat TNT to make it explosive, but wikipedia says it works.
-			if (getTubeMetaData(0) == 11) {
-				if (getTubeMetaData(2) == 12 && inventory[3] == null) {
-					return true;
-				}
-			}
 		}
 		
 		// REACT recipes
@@ -176,51 +182,51 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 			if (inventory[1] == null) return false;
 			
 			// Nitric Acid + Sulfuric Acid mix
-			if (getTubeMetaData(0) == 4 && getTubeMetaData(1) == 5) {
-				if (getTubeMetaData(2) == 6 || inventory[2] == null) {
+			if (getTubeMetadata(0) == 4 && getTubeMetadata(1) == 5) {
+				if (inventory[2] == null || getTubeMetadata(2) == 6) {
 					return true;
 				}
 			}
 			
 			// Nitric+sulfur acid + Toluene -> Nitrotoluene
-			if (getTubeMetaData(0) == 6 && getTubeMetaData(1) == 7) {
-				if (getTubeMetaData(2) == 8 || inventory[2] == null) {
+			if (getTubeMetadata(0) == 6 && getTubeMetadata(1) == 7) {
+				if (inventory[2] == null || getTubeMetadata(2) == 8) {
 					return true;
 				}
 			}
 			
 			// Nitrotoluene + Sodium Bicarbonate -> Cleaned Nitrotoluene
-			if (getTubeMetaData(0) == 8 && getTubeMetaData(1) == 9) {
-				if (getTubeMetaData(2) == 10 || inventory[2] == null) {
+			if (getTubeMetadata(0) == 8 && getTubeMetadata(1) == 9) {
+				if (inventory[2] == null || getTubeMetadata(2) == 10) {
 					return true;
 				}
 			}
 			
 			// Cleaned NT + Nitric+sulfur acid -> Unfinished TNT
-			if (getTubeMetaData(0) == 10 && getTubeMetaData(1) == 6) {
-				if (getTubeMetaData(2) == 11 || inventory[2] == null) {
+			if (getTubeMetadata(0) == 10 && getTubeMetadata(1) == 6) {
+				if (inventory[2] == null || getTubeMetadata(2) == 11) {
 					return true;
 				}
 			}
 			
 			// Pure water + Salt -> Salty water
-			if (getTubeMetaData(0) == 2 && getTubeMetaData(1) == 3) {
-				if (getTubeMetaData(2) == 16 || inventory[2] == null) {
+			if (getTubeMetadata(0) == 2 && getTubeMetadata(1) == 3) {
+				if (inventory[2] == null || getTubeMetadata(2) == 16) {
 					return true;
 				}
 			}
 			
 			// Salty water + ammonia mix
-			if (getTubeMetaData(0) == 16 && getTubeMetaData(1) == 15) {
-				if (getTubeMetaData(2) == 17 || inventory[2] == null) {
+			if (getTubeMetadata(0) == 16 && getTubeMetadata(1) == 15) {
+				if (inventory[2] == null || getTubeMetadata(2) == 17) {
 					return true;
 				}
 			}
 			
 			// Saltywater+ammonia + CO2 -> Sodium bicarbonate + ammonium chloride
-			if (getTubeMetaData(0) == 16 && getTubeMetaData(1) == 15) {
-				if ((getTubeMetaData(2) == 17 || inventory[2] == null)
-				 && (getTubeMetaData(3) == 24 || inventory[3] == null)) {
+			if (getTubeMetadata(0) == 16 && getTubeMetadata(1) == 15) {
+				if ((getTubeMetadata(2) == 17 || inventory[2] == null)
+				 && (inventory[2] == null || getTubeMetadata(3) == 24)) {
 					return true;
 				}
 			}
@@ -235,7 +241,7 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 				// (Railcraft) Creosote Oil -> Toluene (TODO residue)
 				if (inventory[0].getItem() == Items.BUCKET && (FluidRegistry.getFluidStack("creosote", 1000))
 						.isFluidEqual(inventory[0])) {
-					if (getTubeMetadata(2) == 7 || inventory[2] == null) {
+					if (inventory[3] == null || getTubeMetadata(2) == 7) {
 						return true;
 					}
 				}
@@ -259,7 +265,7 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 				decrStackSize(0, 1);
 				
 				if (inventory[2] == null) {
-					setInventorySlotContents(3, new ItemStack(ModItems.testTube, 1, 2));
+					setInventorySlotContents(2, new ItemStack(ModItems.testTube, 1, 2));
 				} else {
 					decrStackSize(2, -1); // Increase stack size by 1. I have checked everything, it will work.
 				}
@@ -271,7 +277,24 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 				
 			}
 			
-			if (inventory[0].getItem() == Items.GUNPOWDER) {
+			// Unfinished TNT -> Raw TNT
+			else if (getTubeMetadata(0) == 11) {
+				decrStackSize(0, 1);
+				
+				if (inventory[2] == null) {
+					setInventorySlotContents(2, new ItemStack(ModItems.testTube, 1, 12));
+				} else {
+					decrStackSize(2, -1);
+				}
+			}
+			
+			else if (inventory[0].getItem() == ModItems.testTube && inventory[0].getItemDamage() == 12) {
+				if (!this.worldObj.isRemote) {
+					worldObj.createExplosion(null, this.pos.getX(), this.pos.getY(), this.pos.getZ(), 3.0F, true);
+				}
+			}
+			
+			else if (inventory[0].getItem() == Items.GUNPOWDER) {
 				if (!this.worldObj.isRemote) {
 					worldObj.createExplosion(null, this.pos.getX(), this.pos.getY(), this.pos.getZ(), 3.0F, true);
 				}
@@ -279,93 +302,94 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 		}
 		
 		// REACT recipes
-		if (mode == Mode.REACT) {
+		else if (mode == Mode.REACT) {
 			// Nitric Acid + Sulfuric Acid mix
-			if (getTubeMetaData(0) == 4 && getTubeMetaData(1) == 5) {
+			if (getTubeMetadata(0) == 4 && getTubeMetadata(1) == 5) {
 				decrStackSize(0, 1);
 				decrStackSize(1, 1);
 				
-				if (getTubeMetaData(2) == 6) {
-					decrStackSize(2, -1)
-				} else {
+				if (inventory[2] == null) {
 					setInventorySlotContents(2, new ItemStack(ModItems.testTube, 1, 6));
+				} else {
+					decrStackSize(2, -1);
 				}
 			}
 			
 			// Nitric+sulfur acid + Toluene -> Nitrotoluene
-			if (getTubeMetaData(0) == 6 && getTubeMetaData(1) == 7) {
+			else if (getTubeMetadata(0) == 6 && getTubeMetadata(1) == 7) {
 				decrStackSize(0, 1);
 				decrStackSize(1, 1);
 				
-				if (getTubeMetaData(2) == 8) {
-					decrStackSize(2, -1)
-				} else {
+				if (inventory[2] == null) {
 					setInventorySlotContents(2, new ItemStack(ModItems.testTube, 1, 8));
+				} else {
+					decrStackSize(2, -1);
 				}
 			}
 			
 			// Nitrotoluene + Sodium Bicarbonate -> Cleaned Nitrotoluene
-			if (getTubeMetaData(0) == 8 && getTubeMetaData(1) == 9) {
+			else if (getTubeMetadata(0) == 8 && getTubeMetadata(1) == 9) {
 				decrStackSize(0, 1);
 				decrStackSize(1, 1);
 				
-				if (getTubeMetaData(2) == 10) {
-					decrStackSize(2, -1)
-				} else {
+				if (inventory[2] == null) {
 					setInventorySlotContents(2, new ItemStack(ModItems.testTube, 1, 10));
+				} else {
+					decrStackSize(2, -1);
 				}
 			}
 			
 			// Cleaned NT + Nitric+sulfur acid -> Unfinished TNT
-			if (getTubeMetaData(0) == 10 && getTubeMetaData(1) == 6) {
+			else if (getTubeMetadata(0) == 10 && getTubeMetadata(1) == 6) {
 				decrStackSize(0, 1);
 				decrStackSize(1, 1);
 				
-				if (getTubeMetaData(2) == 11) {
-					decrStackSize(2, -1)
-				} else {
+				if (inventory[2] == null) {
 					setInventorySlotContents(2, new ItemStack(ModItems.testTube, 1, 11));
+				} else {
+					decrStackSize(2, -1);
 				}
 			}
+			
 			// Pure water + Salt -> Salty water
-			if (getTubeMetaData(0) == 2 && getTubeMetaData(1) == 3) {
+			else if (getTubeMetadata(0) == 2 && getTubeMetadata(1) == 3) {
 				decrStackSize(0, 1);
 				decrStackSize(1, 1);
 				
-				if (getTubeMetaData(2) == 16) {
-					decrStackSize(2, -1)
-				} else {
+				if (inventory[2] == null) {
 					setInventorySlotContents(2, new ItemStack(ModItems.testTube, 1, 16));
+				} else {
+					decrStackSize(2, -1);
 				}
 			}
 			
 			// Salty water + ammonia mix
-			if (getTubeMetaData(0) == 16 && getTubeMetaData(1) == 15) {
+			else if (getTubeMetadata(0) == 16 && getTubeMetadata(1) == 15) {
 				decrStackSize(0, 1);
 				decrStackSize(1, 1);
 				
-				if (getTubeMetaData(2) == 17) {
-					decrStackSize(2, -1)
-				} else {
+				if (inventory[2] == null) {
 					setInventorySlotContents(2, new ItemStack(ModItems.testTube, 1, 17));
+				} else {
+					decrStackSize(2, -1);
 				}
 			}
 			
 			// Saltywater+ammonia + CO2 -> Sodium bicarbonate + ammonium chloride
-			if (getTubeMetaData(0) == 17 && getTubeMetaData(1) == 18) {
+			else if (getTubeMetadata(0) == 17 && getTubeMetadata(1) == 18) {
 				decrStackSize(0, 1);
 				decrStackSize(1, 1);
 				
-				if (getTubeMetaData(2) == 18) {
-					decrStackSize(2, -1)
+				if (inventory[2] == null) {
+					setInventorySlotContents(2, new ItemStack(ModItems.testTube, 1, 24));
 				} else {
-					setInventorySlotContents(2, new ItemStack(ModItems.testTube, 1, 17));
+					decrStackSize(2, -1);
 				}
 			}
 		}
 		
 		// FILTER recipes
-		if (mode == Mode.FILTER) {
+		else if (mode == Mode.FILTER) {
 			// Crossmod recipes
 			if (ChemicalCraft.supportedModsLoaded.contains("railcraft")) {
 				// (Railcraft) Creosote Oil -> Toluene (TODO residue)
@@ -375,7 +399,7 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 					decrStackSize(0, 1);
 					
 					if (inventory[2] == null) {
-						inventory[2] = new ItemStack(ModItems.testTube, 1, 7);
+						setInventorySlotContents(2, new ItemStack(ModItems.testTube, 1, 7));
 					} else if (getTubeMetadata(2) == 7) {
 						decrStackSize(2, -1); // Increase stack size by 1. I have checked everything, it will work.
 					}
