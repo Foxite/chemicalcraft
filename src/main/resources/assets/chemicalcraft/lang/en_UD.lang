@@ -1,0 +1,16 @@
+# Upside down
+
+item.residue_tray.name=ʎɐɹ┴ ǝnpᴉsǝɹ
+item.saltpeter_dust.name=ʇsnp ɹǝʇǝdʇlɐS
+item.table_salt.name=ʇlɐS ǝlqɐ┴
+item.raw_cork.name=ʞɹoƆ ʍɐɹ
+item.cork_bar.name=ɹɐq ʞɹoƆ
+item.cork_stopper.name=ɹǝddoʇS ʞɹoƆ
+item.test_tube.name=ǝqn┴ ʇsǝ┴
+
+tile.chemistry_stand.name=puɐʇS ʎɹʇsᴉɯǝɥƆ
+tile.saltpeter_ore.name=ǝɹO ɹǝʇǝdʇlɐS
+tile.cork_wood.name=pooM ʞɹoƆ
+tile.cork_sapling.name=ƃuᴉldɐS ʞɹoƆ
+
+container.chemistry_stand=puɐʇS ʎɹʇsᴉɯǝɥƆ
