@@ -1,0 +1,16 @@
+# Pirate speak
+
+item.residue_tray.name=Leftover Box
+item.saltpeter_dust.name=Saltpeter Sand
+item.table_salt.name=Seasalt
+item.raw_cork.name=Raw Cork
+item.cork_bar.name=Cork
+item.cork_stopper.name=Stopper
+item.test_tube.name=Testing Tube
+
+tile.chemistry_stand.name=Chemistry Desk
+tile.saltpeter_ore.name=Saltpeter Stone
+tile.cork_wood.name=Cork Timber
+tile.cork_sapling.name=Cork Shrub
+
+container.chemistry_stand=Chemistry Desk
