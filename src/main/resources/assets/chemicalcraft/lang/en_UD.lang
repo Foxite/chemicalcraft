@@ -1,4 +1,5 @@
 # Upside down
+itemGroup.chemicalCraft=ʇɟɐɹɔןɐɔıɯǝɥɔ
 
 item.residue_tray.name=ʎɐɹ┴ ǝnpᴉsǝɹ
 item.saltpeter_dust.name=ʇsnp ɹǝʇǝdʇlɐS
@@ -14,3 +15,50 @@ tile.cork_wood.name=pooM ʞɹoƆ
 tile.cork_sapling.name=ƃuᴉldɐS ʞɹoƆ
 
 container.chemistry_stand=puɐʇS ʎɹʇsᴉɯǝɥƆ
+
+chem.empty=ʎʇdɯǝ
+chem.contwater=sʇuɐuıɯɐʇuoɔ ɥʇıʍ ɹǝʇɐʍ
+chem.h2o=ɹǝʇɐʍ
+chem.nacl=ʇןɐs ǝןqɐʇ
+chem.hno3=pıɔɐ ɔıɹʇıu
+chem.h2so4=pıɔɐ ɔıɹnɟןns
+chem.nitsulacid=pıɔɐ ɔıɹnɟןns + pıɔɐ ɔıɹʇıu
+chem.toluene=ǝuǝnןoʇ
+chem.nitrotoluene=ǝuǝnןoʇoɹʇıu
+chem.nahco3=ǝʇɐuoqɹɐɔıq ɯnıpos
+chem.cnitrotoluene=ǝuǝnןoʇoɹʇıu pǝuɐǝןɔ
+chem.unftnt=ʇuʇ pǝɥsıuıɟun
+chem.rawtnt=ʇuʇ ʍɐɹ
+chem.cuno32=ǝʇɐɹʇıu ɹǝddoɔ
+chem.nano3=ǝʇɐɹʇıu ɯnıpos
+chem.nh3=ɐıuoɯɯɐ
+chem.h2o_nacl=ʇןɐs ǝןqɐʇ + ɹǝʇɐʍ
+chem.nh3_h2o_nacl=ʇןɐs ǝןqɐʇ + ɹǝʇɐʍ + ɐıuoɯɯɐ
+chem.co2=ǝpıxoıp uoqɹɐɔ
+chem.nh3_h2o_nacl_co2=2oɔ + ʇןɐs ǝןqɐʇ + o2ɥ + ɐıuoɯɯɐ
+chem.h2=uǝƃoɹpʎɥ ןɐʇuǝɯǝןǝ
+chem.n2=uǝƃoɹʇıu ןɐʇuǝɯǝןǝ
+chem.o2=uǝƃʎxo ןɐʇuǝɯǝןǝ
+chem.benzene=ǝuǝzuǝq
+chem.nh4cl=ǝpıɹoןɥɔ ɯnıuoɯɯɐ
+
+chem.corrosive=ǝʌısoɹɹoɔ
+chem.hcorrosive=ǝʌısoɹɹoɔ ʎןɥƃıɥ
+chem.ecorrosive=ǝʌısoɹɹoɔ ʎןǝɯǝɹʇxǝ
+chem.flammable=ǝןqɐɯɯɐןɟ
+chem.hflammable=ǝןqɐɯɯɐןɟ ʎןɥƃıɥ
+chem.eflammable=ǝןqɐɯɯɐןɟ ʎןǝɯǝɹʇxǝ
+chem.explosive=ǝʌısoןdxǝ
+chem.hexplosive=ǝʌısoןdxǝ ʎןɥƃıɥ
+chem.alkaline=ǝuıןɐʞןɐ
+chem.halkaline=ǝuıןɐʞןɐ ƃuoɹʇs
+chem.ealkaline=ǝuıןɐʞןɐ ʎןǝɯǝɹʇxǝ
+chem.acid=ɔıpıɔɐ
+chem.hacid=ɔıpıɔɐ ʎןɥƃıɥ
+chem.eacid=ɔıpıɔɐ ʎןǝɯǝʇxǝ
+chem.oxidizer=ɹǝzıpıxo pǝıɟıɹnd
+chem.toxic=ɔıxoʇ
+chem.htoxic=ɔıxoʇ ʎןɥƃıɥ
+chem.etoxic=ɔıxoʇ ʎןǝɯǝɹʇxǝ
+
+chem.stopped=pǝddoʇs
