@@ -538,18 +538,18 @@ public class ChemistryStandEntity extends TileEntity implements ITickable, IInve
 	
 	@Override
 	public boolean isItemValidForSlot(int index, ItemStack stack) {
-		// Only allow test tubes (with any contents) in slots 0 and 1
-		if (index == 0 || index == 1 || index == 2 || index == 4) {
+		// Only allow test tubes (with any contents) in the input slots
+		if (index == 0 || index == 1) {
 			if (stack.getItem().getUnlocalizedName().equals("test_tube")) {
 				return true;
 			}
-			// Only allow residue trays in slot 4
-		} else if (index == 3) {
+			// Only allow residue trays in the residue slot
+		} else if (index == 4) {
 			if (stack.getItem().getUnlocalizedName().equals("residue_tray")) {
 				return true;
 			}
-			// Only allow fuel items in slot 5
-		} else if (index == 6) {
+			// Only allow fuel items in the fuel slot
+		} else if (index == 5) {
 			if (GameRegistry.getFuelValue(stack) > 0) {
 				return true;
 			}
