@@ -12,6 +12,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraft.client.resources.I18n;
 
 import java.util.List;
 
@@ -120,49 +121,49 @@ class TestTube extends BasicItem {
 	public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
 		String type;
 		switch (setBit(stack.getItemDamage(), 30, false)) {
-			case 0: type = "Empty"; break;
-			case 1: type = "Water with contaminants"; break;
-			case 2: type = "Water"; break;
-			case 3: type = "Table salt"; break;
-			case 4: type = "Nitric acid"; break;
-			case 5: type = "Sulfuric acid"; break;
-			case 6: type = "Nitric acid + Sulfuric acid"; break;
-			case 7: type = "Toluene"; break;
-			case 8: type = "Nitrotoluene"; break;
-			case 9: type = "Sodium bicarbonate"; break;
-			case 10: type = "Cleaned nitrotoluene"; break;
-			case 11: type = "Unfinished TNT"; break;
-			case 12: type = "Raw TNT"; break;
-			case 13: type = "Copper nitrate"; break;
-			case 14: type = "Sodium nitrate"; break;
-			case 15: type = "Ammonia"; break;
-			case 16: type = "Water + Table salt"; break;
-			case 17: type = "Ammonia + Water + Table salt"; break;
-			case 18: type = "Carbon dioxide"; break;
-			case 19: type = "Ammonia + H2O + Table salt + CO2"; break;
-			case 20: type = "Elemental hydrogen"; break;
-			case 21: type = "Elemental nitrogen"; break;
-			case 22: type = "Elemental oxygen"; break;
-			case 23: type = "Benzene"; break;
-			case 24: type = "Ammonium chloride"; break;
-			default: type = "Empty"; break;
+			case 0: type = I18n.format("chem.empty"); break;
+			case 1: type = I18n.format("chem.contwater"); break;
+			case 2: type = I18n.format("chem.h2o"); break;
+			case 3: type = I18n.format("chem.nacl"); break;
+			case 4: type = I18n.format("chem.hno3"); break;
+			case 5: type = I18n.format("chem.h2so4"); break;
+			case 6: type = I18n.format("chem.nitsulacid"); break;
+			case 7: type = I18n.format("chem.toluene"); break;
+			case 8: type = I18n.format("chem.nitrotoluene"); break;
+			case 9: type = I18n.format("chem.nahco3"); break;
+			case 10: type = I18n.format("chem.cnitrotoluene"); break;
+			case 11: type = I18n.format("chem.unftnt"); break;
+			case 12: type = I18n.format("chem.rawtnt"); break;
+			case 13: type = I18n.format("chem.cuno32"); break;
+			case 14: type = I18n.format("chem.nano3"); break;
+			case 15: type = I18n.format("chem.nh3"); break;
+			case 16: type = I18n.format("chem.h2o_nacl"); break;
+			case 17: type = I18n.format("chem.nh3_h2o_nacl"); break;
+			case 18: type = I18n.format("chem.co2"); break;
+			case 19: type = I18n.format("chem.nh3_h2o_nacl_co2"); break;
+			case 20: type = I18n.format("chem.h2"); break;
+			case 21: type = I18n.format("chem.n2"); break;
+			case 22: type = I18n.format("chem.o2"); break;
+			case 23: type = I18n.format("chem.benzene"); break;
+			case 24: type = I18n.format("chem.nh4cl"); break;
+			default: type = I18n.format("chem.empty"); break;
 		}
-		if (getBit(stack.getItemDamage(), 30) == 1) type = type + " (stopped)";
+		if (getBit(stack.getItemDamage(), 30) == 1) type = type + " (" + I18n.format("chem.stopped") + ")";
 		tooltip.add(type);
 		
 		// Warnings
 		String warn;
 		switch (setBit(stack.getItemDamage(), 30, false)) {
-			case 4: warn = "Highly corrosive"; break; // Nitric acid
-			case 5: warn = "Highly corrosive"; break; // Sulfuric acid
-			case 6: warn = "Highly corrosive"; break; // Nitric + sulfuric acid
-			case 7: warn = "Highly flammable"; break; // Toluene
-			case 13: warn = "Explosive"; break; // Raw TNT
-			case 15: warn = "Alkaline"; break; // Ammonia
-			case 20: warn = "Extremely flammable"; break; // Elemental hydrogen
-			case 22: warn = "Purified oxidizer"; break; // Elemental oxygen
-			case 23: warn = "Highly flammable"; break; // Benzene
-			case 24: warn = "Toxic"; break; // Benzene
+			case 4: warn = I18n.format("chem.hcorrosive");  break; // Nitric acid
+			case 5: warn = I18n.format("chem.hcorrosive");  break; // Sulfuric acid
+			case 6: warn = I18n.format("chem.hcorrosive");  break; // Nitric + sulfuric acid
+			case 7: warn = I18n.format("chem.hflammable");  break; // Toluene
+			case 13: warn = I18n.format("chem.explosive");  break; // Raw TNT
+			case 15: warn = I18n.format("chem.alkaline");   break; // Ammonia
+			case 20: warn = I18n.format("chem.eflammable"); break; // Elemental hydrogen
+			case 22: warn = I18n.format("chem.oxidizer");   break; // Elemental oxygen
+			case 23: warn = I18n.format("chem.hflammable"); break; // Benzene
+			case 24: warn = I18n.format("chem.toxic");      break; // Benzene
 			default: warn = ""; break;
 		}
 		if (!warn.equals("")) tooltip.add(warn);
