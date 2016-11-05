@@ -40,6 +40,7 @@ public final class ItemRenderRegister {
 		regTestTubeType(21, true); // Elemental nitrogen (stopped only)
 		regTestTubeType(22, true); // Elemental oxygen (stopped only)
 		regTestTubeType(23); // Benzene
+		regTestTubeType(24); // Ammonium chloride
 		Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new TestTubeColor(), ModItems.testTube);
 	}
 	
